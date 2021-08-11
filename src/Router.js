@@ -11,8 +11,8 @@ export default () => (
       {/* <Header /> */}
       <Switch>
         <Route path="/" component={Home} exact={true} />
-        <Route path="/Ring" component={Line} />
-        <Route path="/Line" component={Ring} />
+        <Route path="/Ring" component={Ring} />
+        <Route path="/Line" component={Line} />
         {/* <Route path="/add-role" component={AddRole} /> */}
       </Switch>
 

@@ -48,18 +48,19 @@ export default class Line extends Component {
       <div className="container">
         <h1>How Many Nodes would you like to test the algorithm on? (Line)</h1>
         <div>
+
           <input
             type="text"
             placeholder="Enter the Desired Number of Nodes"
-            width="30%"
+            // width="40%"
             onBlur={this.loadState}
           />
           <button className="generalButton" onClick={this.simulate}>
             Simulate
           </button>
-          <Link to="/" className="generalButton">  Go Home</Link>
         </div>
-      </div>
+        <div className="row"> <Link to="/" className="generalButton">  Go Home </Link></div>
+      </div >
     );
   }
 }
