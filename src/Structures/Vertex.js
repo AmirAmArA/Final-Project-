@@ -1,4 +1,4 @@
-class Vertex {
+export default class Vertex {
 
     constructor(edge1, edge2, neighbor_vertex1, neighbor_vertex2, passing_lightpaths, index) {
         this.neighbor_vertex1 = neighbor_vertex1;
@@ -10,5 +10,3 @@ class Vertex {
     }
 
 }
-
-module.exports = { Vertex };
