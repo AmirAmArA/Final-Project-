@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
@@ -54,7 +55,7 @@ export default class Ring extends Component {
   render() {
     return (
       <>
-        <h1>How Many Nodes would you like to test the algorithm on?</h1>
+        <h1>How Many Nodes would you like to test the algorithm on? (Ring)</h1>
         <div>
           <input
             type="text"
@@ -62,9 +63,13 @@ export default class Ring extends Component {
             width="30%"
             onBlur={this.loadState}
           />
+
+
           <button className="generalButton" onClick={this.simulate}>
             Simulate
           </button>
+
+          <Link to="/" className="generalButton">  Go Home </Link>
         </div>
       </>
     );
