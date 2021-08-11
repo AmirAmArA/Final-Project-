@@ -1,6 +1,7 @@
 
 export default class Vertex {
-  constructor(edge1, edge2, neighbor_vertex1, neighbor_vertex2, passing_lightpaths) {
+  constructor(edge1, edge2, neighbor_vertex1, neighbor_vertex2, index, passing_lightpaths) {
+    this.index = index;
     this.neighbor_vertex1 = neighbor_vertex1;
     this.neighbor_vertex2 = neighbor_vertex2;
     this.edge1 = edge1;
