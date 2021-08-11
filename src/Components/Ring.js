@@ -54,7 +54,7 @@ export default class Ring extends Component {
   };
   render() {
     return (
-      <>
+      <div className="container">
         <h1>How Many Nodes would you like to test the algorithm on? (Ring)</h1>
         <div>
           <input
@@ -71,7 +71,7 @@ export default class Ring extends Component {
 
           <Link to="/" className="generalButton">  Go Home </Link>
         </div>
-      </>
+      </div>
     );
   }
 }

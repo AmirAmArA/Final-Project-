@@ -45,7 +45,7 @@ export default class Line extends Component {
   };
   render() {
     return (
-      <>
+      <div className="container">
         <h1>How Many Nodes would you like to test the algorithm on? (Line)</h1>
         <div>
           <input
@@ -59,7 +59,7 @@ export default class Line extends Component {
           </button>
           <Link to="/" className="generalButton">  Go Home</Link>
         </div>
-      </>
+      </div>
     );
   }
 }

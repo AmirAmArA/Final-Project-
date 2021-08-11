@@ -8,7 +8,7 @@ import Header from "./Components/Header";
 export default () => (
   <BrowserRouter>
     <div>
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route path="/" component={Home} exact={true} />
         <Route path="/Ring" component={Line} />
