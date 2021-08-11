@@ -1,5 +1,5 @@
-const Vertex = require("../Structures/Vertex");
-const Edge = require("../Structures/Edge");
+import Vertex from "../Structures/Vertex";
+import Edge from "../Structures/Edge";
 
 let vertexCount = 10;
 let vertexArr = [];
@@ -43,22 +43,22 @@ function check_path(v1, v2, varr, toplogy) {
 
 
     if (v1 < v2) {
-        start = {...varr[v1] };
-        target = {...varr[v2] };
+        start = { ...varr[v1] };
+        target = { ...varr[v2] };
     } else {
-        start = {...varr[v2] };
-        target = {...varr[v1] };
+        start = { ...varr[v2] };
+        target = { ...varr[v1] };
     }
 
     console.log(start);
-    current = {...start };
+    current = { ...start };
 
     console.log(current);
 
     while (!(JSON.stringify(target) === JSON.stringify(current))) {
 
         edges_on_the_way.push(current.edge2);
-        current = {...varr[current.neighbor_vertex2] };
+        current = { ...varr[current.neighbor_vertex2] };
     }
 
     console.log(edges_on_the_way);
