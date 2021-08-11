@@ -6,7 +6,7 @@ let vertexArr = [];
 let edgeArr = [];
 let lightpathArr = [];
 
-produceGraph = () => {
+const produceGraph = () => {
 
     for (let i = 0; i < vertexCount; i++) {
         switch (i) {
@@ -56,9 +56,7 @@ function check_path(v1, v2, varr, toplogy) {
     console.log(current);
 
     while (!(JSON.stringify(target) === JSON.stringify(current))) {
-        if (current.edge2 == null) {
-            beforeAll;
-        }
+
         edges_on_the_way.push(current.edge2);
         current = {...varr[current.neighbor_vertex2] };
     }
@@ -68,15 +66,15 @@ function check_path(v1, v2, varr, toplogy) {
 }
 
 
-function check_confict(lp1, lp2) {
-    let i = 0,
-        j = 0;
-    for (i = 0; i < lp1.length; i++) {
-        for (j = 0; j < lp2.length; j++) {
-            if (lp1[i] == lp2[j]) return true;
-        }
-    }
-    return false;
-}
+// function check_confict(lp1, lp2) {
+//     let i = 0,
+//         j = 0;
+//     for (i = 0; i < lp1.length; i++) {
+//         for (j = 0; j < lp2.length; j++) {
+//             if (lp1[i] == lp2[j]) return true;
+//         }
+//     }
+//     return false;
+// }
 
 produceGraph();

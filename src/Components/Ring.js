@@ -28,7 +28,7 @@ export default class Ring extends Component {
           vertexArr.push(
             new Vertex(vertexCount - 1, i, vertexCount - 1, i + 1)
           );
-          edgeArr.push(new Edge(vertexCount - 1, i, i, i + 1));
+          edgeArr.push(new Edge(vertexCount - 1, i + 1, i, i + 1));
           break;
         case vertexCount - 1:
           vertexArr.push(new Vertex(i - 1, vertexCount - 1, i - 1, 0));

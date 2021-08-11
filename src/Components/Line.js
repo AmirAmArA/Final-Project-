@@ -38,11 +38,20 @@ export default class Line extends Component {
 
   loadState = (event) => {
     this.setState({ vertexCount: event.target.value });
+
   };
 
   simulate = () => {
     this.produceGraph();
   };
+  test = () => {
+    const lightpath1 = [2, 3, 6]
+    const lightpath2 = [1, 4, 5]
+    const res = lightpath1.filter(arr1Item => lightpath2.includes(arr1Item));
+    console.log(res)
+    console.log(res.length > 0 ? true : false)
+
+  }
   render() {
     return (
       <div className="container">
@@ -57,6 +66,9 @@ export default class Line extends Component {
           />
           <button className="generalButton" onClick={this.simulate}>
             Simulate
+          </button>
+          <button className="generalButton" onClick={this.test}>
+            Test
           </button>
         </div>
         <div className="row"> <Link to="/" className="generalButton">  Go Home </Link></div>
