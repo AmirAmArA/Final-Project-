@@ -54,24 +54,21 @@ export default class Ring extends Component {
   };
   render() {
     return (
-      <>
+      <div className="container">
         <h1>How Many Nodes would you like to test the algorithm on? (Ring)</h1>
-        <div>
+        <div className="row-md-12">
           <input
             type="text"
             placeholder="Enter the Desired Number of Nodes"
-            width="30%"
+            width="40%"
             onBlur={this.loadState}
           />
-
-
           <button className="generalButton" onClick={this.simulate}>
             Simulate
           </button>
-
-          <Link to="/" className="generalButton">  Go Home </Link>
         </div>
-      </>
+        <div className="row-md-12 mt-5"> <Link to="/" className="generalButton">  Go Home </Link></div>
+      </div>
     );
   }
 }
