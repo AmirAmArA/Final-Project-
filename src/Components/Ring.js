@@ -4,6 +4,8 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand , randN } from '../Structures/helpFunc.js';
+import {getSVG} from './Circles'
+import d3 from 'd3'
 
 export default class Ring extends Component {
   constructor() {
@@ -58,6 +60,8 @@ export default class Ring extends Component {
       console.log(circlesArr);
 
     }
+    getSVG(circlesArr,vertexArr.length)
+
   }
 
   simulate = () => {
@@ -80,6 +84,9 @@ export default class Ring extends Component {
           <button className="generalButton" onClick={this.simulate}>
             Simulate
           </button>
+          <div className='svgpainter'>
+
+          </div>
          
         </div>
         <div className="row-md-12 mt-5"> <Link to="/" className="generalButton">  Go Home </Link></div>
