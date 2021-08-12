@@ -1,8 +1,9 @@
 export default class Lightpath {
-  constructor(wavelength, passing_edges, vertex1, vertex2) {
+  constructor(wavelength, startVertex, endVertex, index, passing_edges) {
     this.wavelength = wavelength;
     this.passing_edges = passing_edges;
-    this.vertex1 = vertex1;
-    this.vertex2 = vertex2;
+    this.startVertex = startVertex;
+    this.endVertex = endVertex;
+    this.index = index;
   }
 }
