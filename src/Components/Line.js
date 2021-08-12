@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
@@ -43,6 +43,7 @@ export default class Line extends Component {
   simulate = () => {
     this.produceGraph();
   };
+
   render() {
     return (
       <div className="container">

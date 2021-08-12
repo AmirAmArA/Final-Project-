@@ -1,10 +1,10 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
-import { rand , randN } from '../Structures/helpFunc.js';
-import {getSVG} from './Circles'
+import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
+import { getSVG } from './Circles'
 import d3 from 'd3'
 
 export default class Ring extends Component {
@@ -15,6 +15,9 @@ export default class Ring extends Component {
       vertexArr: [],
       edgeArr: [],
       lightpathArr: [],
+      validChains: {
+
+      },
     };
   }
 
@@ -48,19 +51,26 @@ export default class Ring extends Component {
   };
 
   produceLightpathsOptimal = () => {
-    const { vertexCount, vertexArr, edgeArr } = this.state;
+    const { vertexCount, vertexArr, edgeArr, lightpathArr } = this.state;
+    const optimalCirclesNum = rand(2, 7);
 
-    const circlesNumber = rand(2, 2 * vertexArr.length);
-
-    let circlesArr = new Array(circlesNumber);
+    let optimalCirclesArr = new Array(optimalCirclesNum);
 
 
-    for (let i = 0 ; i < circlesNumber ; i++) {
-      circlesArr[i] = randN(vertexArr)
-      console.log(circlesArr);
+    for (let i = 0; i < optimalCirclesNum; i++) {
+      optimalCirclesArr[i] = randN(vertexArr)
 
     }
-    getSVG(circlesArr,vertexArr.length)
+    // lightpathArr.push()
+
+    // let temp = createLightpaths(optimalCirclesArr, vertexArr);
+
+    // console.log(temp);
+    lightpathArr.push(...createLightpaths(optimalCirclesArr, vertexArr))
+    console.log(lightpathArr);
+    getSVG(optimalCirclesArr, vertexArr.length)
+
+
 
   }
 
@@ -87,7 +97,7 @@ export default class Ring extends Component {
           <div className='svgpainter'>
 
           </div>
-         
+
         </div>
         <div className="row-md-12 mt-5"> <Link to="/" className="generalButton">  Go Home </Link></div>
       </div>
