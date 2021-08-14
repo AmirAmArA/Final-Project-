@@ -4,7 +4,7 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
-import { getSVG } from './Circles'
+import { getSVG,f } from './Circles'
 import d3 from 'd3'
 
 export default class Ring extends Component {
@@ -69,6 +69,7 @@ export default class Ring extends Component {
     lightpathArr.push(...createLightpaths(optimalCirclesArr, vertexArr))
     console.log(lightpathArr);
     getSVG(optimalCirclesArr, vertexArr.length)
+    f([vertexArr],lightpathArr,vertexArr.length)
 
 
 
@@ -77,6 +78,7 @@ export default class Ring extends Component {
   simulate = () => {
     this.produceGraph();
     this.produceLightpathsOptimal();
+    
   };
 
 
@@ -95,6 +97,9 @@ export default class Ring extends Component {
             Simulate
           </button>
           <div className='svgpainter'>
+
+          </div>
+          <div className='svgpainter2' style={{width : '1000px', height:'1000px;'}}>
 
           </div>
 
