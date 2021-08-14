@@ -1,4 +1,5 @@
 import Lightpath from "./Lightpath";
+import Vertex from "../Structures/Vertex";
 
 const rand = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -24,7 +25,7 @@ const randN = (array) => {
 }
 
 
-const createLightpaths = (optimalCirclesArr, vertexArr) => {
+const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
     let lightpaths = [];
     let validChains = [[], []];
     for (let i = 0; i < optimalCirclesArr.length; i++) {
@@ -37,9 +38,48 @@ const createLightpaths = (optimalCirclesArr, vertexArr) => {
 
 
     }
+    lightpaths.forEach(lightpath => {
+        lightpath.passing_edges = check_path(lightpath.startVertex, lightpath.endVertex, vertexArr, edgeArr)
+    })
     return lightpaths
 
 }
+
+function check_path(v1, v2, vertex) {
+
+    console.log(vertex[v1], vertex[v2]);
+
+    let start = new Vertex();
+    let target = new Vertex();
+    let current = new Vertex();
+    let edges_on_the_way = [];
+    console.log("*******************");
+
+
+    start = { ...vertex[v1] };
+    target = { ...vertex[v2] };
+    current = { ...start };
+
+    while (!(JSON.stringify(target) === JSON.stringify(current))) {
+
+        edges_on_the_way.push(current.edge2);
+        current = { ...vertex[current.neighbor_vertex2] };
+    }
+
+    console.log(edges_on_the_way);
+    return edges_on_the_way;
+
+    // let temp = edge;
+
+    // for (let i = 0; i < edges_on_the_way.length; i++) {
+
+    // }
+    // console.log(edges_on_the_way.filter(edge=> edge));
+    // return edges_on_the_way;
+}
+
+
+
 
 
 export { randN, rand, createLightpaths };
