@@ -5,7 +5,7 @@ import Line from "./Components/Line";
 import Home from "./Components/Home";
 import Header from "./Components/Header";
 
-export default () => (
+const Router = () => (
   <BrowserRouter>
     <div>
       {/* <Header /> */}
@@ -19,3 +19,5 @@ export default () => (
     </div>
   </BrowserRouter>
 );
+
+export default Router;

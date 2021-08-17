@@ -1,4 +1,3 @@
-
 export default class Vertex {
   constructor(edge1, edge2, neighbor_vertex1, neighbor_vertex2, index, passing_lightpaths) {
     this.index = index;
