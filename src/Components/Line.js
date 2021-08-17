@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
+import {optimalLines} from './lines'
 
 export default class Line extends Component {
   constructor() {
@@ -21,14 +22,14 @@ export default class Line extends Component {
     for (let i = 0; i < vertexCount; i++) {
       switch (i) {
         case 0:
-          vertexArr.push(new Vertex(null, i, null, i + 1));
+          vertexArr.push(new Vertex(null, i, null, i + 1,i));
           edgeArr.push(new Edge(null, i + 1, 0, i + 1));
           break;
         case vertexCount - 1:
-          vertexArr.push(new Vertex(i - 1, null, i - 1, null));
+          vertexArr.push(new Vertex(i - 1, null, i - 1, null,i));
           break;
         default:
-          vertexArr.push(new Vertex(i - 1, i, i - 1, i + 1));
+          vertexArr.push(new Vertex(i - 1, i, i - 1, i + 1,i));
           edgeArr.push(new Edge(i, i + 1, i - 1, i + 1));
           break;
       }
@@ -42,6 +43,9 @@ export default class Line extends Component {
 
   simulate = () => {
     this.produceGraph();
+    const {vertexArr } = this.state;
+    optimalLines([vertexArr],vertexArr.length)
+
   };
 
   render() {
@@ -60,6 +64,7 @@ export default class Line extends Component {
             Simulate
           </button>
         </div>
+        <div className='svgpainter' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}></div>
         <div className="row"> <Link to="/" className="generalButton">  Go Home </Link></div>
       </div >
     );

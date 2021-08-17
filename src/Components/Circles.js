@@ -195,8 +195,8 @@ function drawVerteses(circles,svg,globalVertises){
             let radius=5+((index+1)*3)
             let line=((2*radius*Math.PI))/(globalVertises)
             
-            drawedje(svg,start,LP.startVertex*line,radius,0.5,3,'red')
-            drawedje(svg,start,LP.endVertex*line,radius,0.5,3,'red')
+            drawedje2(svg,start,LP.startVertex*line,radius,0.5,3,'red',`${LP.index}999`)
+            drawedje2(svg,start,LP.endVertex*line,radius,0.5,3,'red',`${LP.index}999`)
         })
     });
 }
@@ -227,6 +227,7 @@ export function f1(mainCircle,LParr,globalVertises){
     let svg=drawcircles(mainCircle,globalVertises,3,'.svgpainter3')
     
     LParr.forEach((LP,LPindex)=>{
+        LP.index=LPindex
         let appended=false
         circlesByPassingEdges.forEach((circle,index)=>{
             if(appended){
@@ -252,4 +253,33 @@ export function f1(mainCircle,LParr,globalVertises){
         }
     })
     drawVerteses(circlesByLp,svg,globalVertises)
+    return circlesByLp
 }
+
+
+// export function getCircles(LParr){
+//     let circlesByLp=[]
+//     let circlesByPassingEdges=[]
+//     let svg=drawcircles(mainCircle,globalVertises,3,'.svgpainter3')
+    
+//     LParr.forEach((LP,LPindex)=>{
+//         let appended=false
+//         circlesByPassingEdges.forEach((circle,index)=>{
+//             if(appended){
+//                 return
+//             }
+//             if((!cross(LP.passing_edges,circle)) && checkCrossVerteses(LP,circlesByLp[index])){
+
+//                 circlesByPassingEdges[index]=circlesByPassingEdges[index].concat(LP.passing_edges)
+//                 circlesByLp[index].push(LP)
+
+//                 appended=true
+//             }
+//         })
+//         if(!appended){
+//             circlesByPassingEdges.push(LP.passing_edges)
+//             circlesByLp.push([LP])
+//         }
+//     })
+//     return circlesByLp
+// }

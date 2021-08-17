@@ -81,7 +81,11 @@ export default class Ring extends Component {
 
     const {LParr,lpCNT } = this.state;
     console.log(lpCNT);
+    //let circlesByLP=getCircles(LParr)
     let paths=document.querySelectorAll(`.p${lpCNT}`)
+    console.log('-----------------')
+    console.log(paths)
+    console.log('-----------------')
     if(lpCNT >= LParr.length) {
       
       console.log('Out of Boundry')
@@ -92,7 +96,24 @@ export default class Ring extends Component {
         paths[j].removeAttribute('display')
       }
       
-    
+    } 
+
+
+    //-----------------------
+    paths=document.querySelectorAll(`.p${lpCNT}999`)
+    console.log('****************')
+    console.log(paths)
+    console.log('****************')
+    if(lpCNT >= LParr.length) {
+      
+      console.log('Out of Boundry')
+    } else {
+
+      
+      for(var j=0;j<paths.length;j++){
+        paths[j].removeAttribute('display')
+      }
+      
     } 
     this.setState({lpCNT: this.state.lpCNT + 1})
 
