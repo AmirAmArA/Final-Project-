@@ -31,10 +31,10 @@ const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
     for (let i = 0; i < optimalCirclesArr.length; i++) {
         const circle = optimalCirclesArr[i];
         for (let count = 0; count < circle.length - 1; count++) {
-            lightpaths.push(new Lightpath({ r: (((i + 50) * 1853) % 256), g: (((i + 50) * 1853) % 256), b: (((i + 50) * 1853) % 256) }, circle[count].index, circle[count + 1].index, lightpaths.length))
+            lightpaths.push(new Lightpath({ r: rand(0,255), g: rand(0,255), b: rand(0,255) }, circle[count].index, circle[count + 1].index, lightpaths.length))
 
         }
-        lightpaths.push(new Lightpath({ r: (((i + 50) * 1853) % 256), g: (((i + 50) * 1853) % 256), b: (((i + 50) * 1853) % 256) }, circle[circle.length - 1].index, circle[0].index, lightpaths.length))
+        lightpaths.push(new Lightpath({ r: rand(0,255), g: rand(0,255), b: rand(0,255) }, circle[circle.length - 1].index, circle[0].index, lightpaths.length))
 
 
     }
@@ -53,7 +53,6 @@ function check_path(v1, v2, vertex) {
     let target = new Vertex();
     let current = new Vertex();
     let edges_on_the_way = [];
-    console.log("*******************");
 
 
     start = { ...vertex[v1] };

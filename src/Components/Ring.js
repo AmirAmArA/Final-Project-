@@ -4,7 +4,7 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
-import { getSVG,f } from './Circles'
+import { getSVG,f1,f,shuffle ,appear, wait} from './Circles'
 import d3 from 'd3'
 
 export default class Ring extends Component {
@@ -15,9 +15,8 @@ export default class Ring extends Component {
       vertexArr: [],
       edgeArr: [],
       lightpathArr: [],
-      validChains: {
-
-      },
+      LParr: [],
+      lpCNT:0
     };
   }
 
@@ -51,7 +50,7 @@ export default class Ring extends Component {
   };
 
   produceLightpathsOptimal = () => {
-    const { vertexCount, vertexArr, edgeArr, lightpathArr } = this.state;
+    const { vertexCount, vertexArr, edgeArr, lightpathArr,LParr } = this.state;
     const optimalCirclesNum = rand(2, 7);
 
     let optimalCirclesArr = new Array(optimalCirclesNum);
@@ -61,19 +60,51 @@ export default class Ring extends Component {
       optimalCirclesArr[i] = randN(vertexArr)
 
     }
-    // lightpathArr.push()
-
-    // let temp = createLightpaths(optimalCirclesArr, vertexArr);
-
-    // console.log(temp);
+    
     lightpathArr.push(...createLightpaths(optimalCirclesArr, vertexArr))
     console.log(lightpathArr);
-    getSVG(optimalCirclesArr, vertexArr.length)
-    f([vertexArr],lightpathArr,vertexArr.length)
 
+    optimalCirclesArr.unshift(vertexArr)
+    
+    getSVG(optimalCirclesArr, vertexArr.length)
+    LParr.push(...shuffle(lightpathArr))
+    console.log(LParr);
+    // f([vertexArr],LParr,vertexArr.length)
+    f1([vertexArr],LParr,vertexArr.length)
+   
+    
 
 
   }
+
+  appear = () => {
+
+    const {LParr,lpCNT } = this.state;
+    console.log(lpCNT);
+    let paths=document.querySelectorAll(`.p${lpCNT}`)
+    if(lpCNT >= LParr.length) {
+      
+      console.log('Out of Boundry')
+    } else {
+
+      
+      for(var j=0;j<LParr[lpCNT].passing_edges.length;j++){
+        paths[j].removeAttribute('display')
+      }
+      
+    
+    } 
+    this.setState({lpCNT: this.state.lpCNT + 1})
+
+    // for(var i=0;i<LParr.length;i++){
+    //     let paths=document.querySelectorAll(`.p${i}`)
+    //     for(var j=0;j<LParr.passing_edges;j++){
+    //       paths[j].removeAttribute('display')
+    //     }
+
+    //     wait(500)
+    // }
+}
 
   simulate = () => {
     this.produceGraph();
@@ -81,8 +112,8 @@ export default class Ring extends Component {
     
   };
 
-
   render() {
+    const {LParr} = this.state;
     return (
       <div className="container">
         <h1>How Many Nodes would you like to test the algorithm on? (Ring)</h1>
@@ -99,11 +130,15 @@ export default class Ring extends Component {
           <div className='svgpainter'>
 
           </div>
-          <div className='svgpainter2' style={{width : '1000px', height:'1000px;'}}>
+          {/* <div className='svgpainter2' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}>
+
+          </div> */}
+          <div className='svgpainter3' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}>
 
           </div>
 
         </div>
+          <button className="generalButton" onClick={this.appear}>sex</button>
         <div className="row-md-12 mt-5"> <Link to="/" className="generalButton">  Go Home </Link></div>
       </div>
     );
