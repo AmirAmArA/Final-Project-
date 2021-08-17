@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
@@ -44,14 +44,6 @@ export default class Line extends Component {
   simulate = () => {
     this.produceGraph();
   };
-  test = () => {
-    const lightpath1 = [2, 3, 6]
-    const lightpath2 = [1, 4, 5]
-    const res = lightpath1.filter(arr1Item => lightpath2.includes(arr1Item));
-    console.log(res)
-    console.log(res.length > 0 ? true : false)
-
-  }
   render() {
     return (
       <div className="container">

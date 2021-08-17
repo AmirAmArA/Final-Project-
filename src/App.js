@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   render() {
-    return this.state.isLoading ? < Loading /> : < Router />;
+    return this.state.isLoading ? <Loading /> : <Router />;
   }
 }
 export default App;
