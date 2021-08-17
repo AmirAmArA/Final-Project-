@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
+import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
+import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
+import d3 from 'd3'
+import '../App.css';
 
 export default class Line extends Component {
   constructor() {
@@ -21,15 +25,15 @@ export default class Line extends Component {
     for (let i = 0; i < vertexCount; i++) {
       switch (i) {
         case 0:
-          vertexArr.push(new Vertex(null, i, null, i + 1));
-          edgeArr.push(new Edge(null, i + 1, 0, i + 1));
+          vertexArr.push(new Vertex(null, i, null, i + 1,i));
+          edgeArr.push(new Edge(null, i + 1, 0, i + 1,i));
           break;
         case vertexCount - 1:
-          vertexArr.push(new Vertex(i - 1, null, i - 1, null));
+          vertexArr.push(new Vertex(i - 1, null, i - 1, null,i));
           break;
         default:
-          vertexArr.push(new Vertex(i - 1, i, i - 1, i + 1));
-          edgeArr.push(new Edge(i, i + 1, i - 1, i + 1));
+          vertexArr.push(new Vertex(i - 1, i, i - 1, i + 1,i));
+          edgeArr.push(new Edge(i, i + 1, i - 1, i + 1,i));
           break;
       }
     }
@@ -40,6 +44,10 @@ export default class Line extends Component {
     this.setState({ vertexCount: event.target.value });
 
   };
+
+  produceLightpaths = () => {
+    
+  }
 
   simulate = () => {
     this.produceGraph();
