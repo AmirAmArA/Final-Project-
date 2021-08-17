@@ -195,8 +195,8 @@ function drawVerteses(circles, svg, globalVertises) {
             let radius = 5 + ((index + 1) * 3)
             let line = ((2 * radius * Math.PI)) / (globalVertises)
 
-            drawedje(svg, start, LP.startVertex * line, radius, 0.5, 3, 'red', `${LP.index}999`)
-            drawedje(svg, start, LP.endVertex * line, radius, 0.5, 3, 'red', `${LP.index}999`)
+            drawedje2(svg, start, LP.startVertex * line, radius, 0.5, 3, 'red', `${LP.index}999`)
+            drawedje2(svg, start, LP.endVertex * line, radius, 0.5, 3, 'red', `${LP.index}999`)
         })
     });
 }

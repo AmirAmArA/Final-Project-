@@ -91,6 +91,18 @@ export default class Ring extends Component {
         paths[j].removeAttribute('display')
       }
     }
+    paths = document.querySelectorAll(`.p${lpCNT}999`)
+
+    if (lpCNT >= LParr.length) {
+
+      this.setState({ showLpOnlineCNT: true })
+    } else {
+
+
+      for (var j = 0; j < paths.length; j++) {
+        paths[j].removeAttribute('display')
+      }
+    }
     this.setState({ lpCNT: this.state.lpCNT + 1 })
   }
 
@@ -156,7 +168,13 @@ export default class Ring extends Component {
 
           <div className='tc ' style={{ display: this.state.showOnline ? null : 'none' }}>
 
-            <h3>OnLine minADM Solution <br />Total ADMs: {this.state.showLpOnlineCNT ? this.state.lpOnlineCNT : null}</h3>
+            <h3>
+              OnLine minADM Solution <br />Total ADMs:
+              {this.state.showLpOnlineCNT ? this.state.lpOnlineCNT : null}
+            </h3>
+            <h4>
+              {this.state.showOnline ? this.state.LParr[this.state.lpCNT] != undefined ? 'Next Lightpath start is : ' + this.state.LParr[this.state.lpCNT].startVertex : null : null}  <br /> {this.state.showOnline ? this.state.LParr[this.state.lpCNT] != undefined ? 'end is : ' + this.state.LParr[this.state.lpCNT].endVertex : null : null}
+            </h4>
             <div className='tc svgpainter3' style={{ transform: 'all 1s ease-in-out' }}></div>
           </div>
 
