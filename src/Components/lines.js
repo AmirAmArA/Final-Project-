@@ -3,9 +3,9 @@ import d3 from 'd3'
 function aadrawLPline(svg,start,end,indexOfLevel,lineWidth,col){
     svg.append('svg:line')
         .attr('x1',`${start}`)
-        .attr('y1',`${indexOfLevel*3}`)
+        .attr('y1',`${indexOfLevel*50}`)
         .attr('x2',`${end}`)
-        .attr('y2',`${indexOfLevel*3}`)
+        .attr('y2',`${indexOfLevel*50}`)
         .attr('stroke',col)
         .attr('stroke-width',`${lineWidth}`)
 }
@@ -36,9 +36,9 @@ export function optimalLines(levels,globalVerticies){
     levels.forEach((lightPaths,indexOfLevel) => {
         for(var i=0;i<lightPaths.length-1;i++){
             var indexInLp=lightPaths[i].index
-            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp+1)*lineLenght,indexOfLevel,100,'red')
-            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp*lineLenght)+20,indexOfLevel,100,'black')
-            aadrawLPline(svg,(indexInLp+1)*lineLenght,((indexInLp+1)*lineLenght)+20,indexOfLevel,100,'black')
+            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp+1)*lineLenght,indexOfLevel,30,'red')
+            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp*lineLenght)+20,indexOfLevel,30,'black')
+            aadrawLPline(svg,(indexInLp+1)*lineLenght,((indexInLp+1)*lineLenght)+20,indexOfLevel,30,'black')
         }
         
         

@@ -67,7 +67,7 @@ export default class Line extends Component {
       optimalLinesArr[i].push(vertexArr[vertexCount-1])
     }
     console.log(optimalLinesArr);
-    optimalLines([vertexArr],vertexArr.length)
+    optimalLines(optimalLinesArr,vertexArr.length)
 
     // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
     // optimalLinesArr.unshift(vertexArr)
