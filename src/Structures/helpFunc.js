@@ -27,7 +27,6 @@ const randN = (array) => {
 
 const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
     let lightpaths = [];
-    let validChains = [[], []];
     for (let i = 0; i < optimalCirclesArr.length; i++) {
         const circle = optimalCirclesArr[i];
         for (let count = 0; count < circle.length - 1; count++) {

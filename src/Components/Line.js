@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
-import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
+import { rand, randN, createLightpaths} from '../Structures/helpFunc.js';
 import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
 import d3 from 'd3'
 import '../App.css';
@@ -56,21 +56,27 @@ export default class Line extends Component {
     const { vertexCount, vertexArr, edgeArr ,lightpathArr, LParr, lpOnlineCNT} = this.state;
     const optimalLinesNum = rand(2,7);
     let optimalLinesArr = new Array(optimalLinesNum);
+    const vertexArrLine = [...vertexArr];
+    vertexArrLine.pop();
+    vertexArrLine.shift();
 
     for (let i = 0; i < optimalLinesNum; i++) {
-      optimalLinesArr[i] = randN(vertexArr);    
+      optimalLinesArr[i] = randN(vertexArrLine);
+      optimalLinesArr[i].unshift(vertexArr[0])
+      optimalLinesArr[i].push(vertexArr[vertexCount-1])
     }
+    console.log(optimalLinesArr);
+    // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
+    // optimalLinesArr.unshift(vertexArr)
+    // getSVG(optimalLinesArr, vertexArr.length)
 
-    lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
-    optimalLinesArr.unshift(vertexArr)
-    getSVG(optimalLinesArr, vertexArr.length)
-
-    LParr.push(...shuffle(lightpathArr))
-    this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
+    // LParr.push(...shuffle(lightpathArr))
+    // this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   }
 
   simulate = () => {
     this.produceGraph();
+    this.produceLightpaths();
   };
   render() {
     return (
