@@ -141,7 +141,7 @@ export default class Ring extends Component {
             placeholder="Number of Nodes"
             width="40%"
             style={{ borderRadius: "10px" }}
-            onChange={this.loadState}
+            onBlur={this.loadState}
             className="pa1 ma2 ba b--light-blue "
           />
 
