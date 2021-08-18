@@ -44,9 +44,46 @@ const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
 
 }
 
+const createLightpathsLine = (optimalLinesArr, vertexArr) => {
+    let lightpaths = [];
+    for (let i = 0; i < optimalLinesArr.length; i++) {
+        const line = optimalLinesArr[i];
+        for (let count = 0; count < line.length - 1; count++) {
+            lightpaths.push(new Lightpath({ r: rand(0,255), g: rand(0,255), b: rand(0,255) }, line[count].index, line[count + 1].index, lightpaths.length))
+
+        }
+        // lightpaths.push(new Lightpath({ r: rand(0,255), g: rand(0,255), b: rand(0,255) }, line[circle.length - 1].index, line[0].index, lightpaths.length))
+
+
+    }
+    lightpaths.forEach(lightpath => {
+        lightpath.passing_edges = checkPathL(lightpath.startVertex, lightpath.endVertex, vertexArr)
+    })
+    return lightpaths
+
+}
+
+const checkPathL = (v1,v2,vertex) => {
+    let start = new Vertex();
+    let target = new Vertex();
+    let current = new Vertex();
+    let edges_on_the_way = [];
+    start = { ...vertex[v1] };
+    target = { ...vertex[v2] };
+    current = { ...start };
+
+    while (!(JSON.stringify(target) === JSON.stringify(current))) {
+        edges_on_the_way.push(current.edge2);
+        current = { ...vertex[current.neighbor_vertex2] };
+    }
+    return edges_on_the_way;
+
+}
+
+
 function check_path(v1, v2, vertex) {
 
-    console.log(vertex[v1], vertex[v2]);
+    // console.log(vertex[v1], vertex[v2]);
 
     let start = new Vertex();
     let target = new Vertex();
@@ -80,4 +117,4 @@ function check_path(v1, v2, vertex) {
 
 
 
-export { randN, rand, createLightpaths };
+export { randN, rand, createLightpaths ,createLightpathsLine};
