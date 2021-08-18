@@ -5,6 +5,7 @@ import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand, randN, createLightpaths,createLightpathsLine} from '../Structures/helpFunc.js';
 import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
+import {optimalLines,onlineLines} from './lines'
 import d3 from 'd3'
 import '../App.css';
 
@@ -65,8 +66,15 @@ export default class Line extends Component {
       optimalLinesArr[i].unshift(vertexArr[0])
       optimalLinesArr[i].push(vertexArr[vertexCount-1])
     }
-
+    console.log(optimalLinesArr);
     lightpathArr.push(...createLightpathsLine(optimalLinesArr, vertexArr))
+    optimalLinesArr.unshift(vertexArr)
+    optimalLines(optimalLinesArr,vertexArr.length)
+
+    onlineLines(shuffle(lightpathArr),vertexArr.length)
+
+    // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
+
     
     // optimalLinesArr.unshift(vertexArr)
     // getSVG(optimalLinesArr, vertexArr.length)
@@ -98,6 +106,8 @@ export default class Line extends Component {
             Test
           </button>
         </div>
+        <div className='svgpainter' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}></div>
+        <div className='svgpainter2' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}></div>
         <div className="row"> <Link to="/" className="generalButton">  Go Home </Link></div>
       </div >
     );

@@ -70,10 +70,10 @@ export function getSVG(circlesArr, globalVertises) {
 }
 
 
-function cross(LPaths1, LPaths2) {
-    for (var i = 0; i < LPaths1.length; i++)
-        for (var j = 0; j < LPaths2.length; j++)
-            if (LPaths1[i] == LPaths2[j]) {
+export function cross(LPaths1,LPaths2){
+    for(var i=0;i<LPaths1.length;i++)
+        for(var j=0;j<LPaths2.length;j++)
+            if(LPaths1[i]==LPaths2[j]){
                 return true
             }
 
@@ -212,25 +212,25 @@ function drawLP(LP, index, globalVertises, svg, LPindex) {
     })
 }
 
-function checkCrossVerteses(LP, circle) {
-    for (var i = 0; i < circle.length; i++) {
-        if (cross([circle[i].startVertex, circle[i].endVertex], [LP.startVertex, LP.endVertex])) {
+export function checkCrossVerteses(LP,circle){
+    for(var i=0;i<circle.length;i++){
+        if(cross([circle[i].startVertex,circle[i].endVertex],[LP.startVertex,LP.endVertex])){
             return true
         }
     }
     return false
 }
 
-export function f1(mainCircle, LParr, globalVertises, edgeCNT) {
-    let circlesByLp = []
-    let circlesByPassingEdges = []
-    let svg = drawcircles(mainCircle, globalVertises, 3, '.svgpainter3')
-
-    LParr.forEach((LP, LPindex) => {
-        LP.index = LPindex
-        let appended = false
-        circlesByPassingEdges.forEach((circle, index) => {
-            if (appended) {
+export function f1(mainCircle,LParr,globalVertises,edgeCNT){
+    let circlesByLp=[]
+    let circlesByPassingEdges=[]
+    let svg=drawcircles(mainCircle,globalVertises,3,'.svgpainter3')
+    
+    LParr.forEach((LP,LPindex)=>{
+        LP.index=LPindex
+        let appended=false
+        circlesByPassingEdges.forEach((circle,index)=>{
+            if(appended){
                 return
             }
             if ((!cross(LP.passing_edges, circle)) && checkCrossVerteses(LP, circlesByLp[index])) {
