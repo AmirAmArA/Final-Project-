@@ -10,9 +10,9 @@ const Router = () => (
     <div>
       {/* <Header /> */}
       <Switch>
-        <Route path="/" component={Home} exact={true} />
-        <Route path="/Ring" component={Ring} />
-        <Route path="/Line" component={Line} />
+        <Route path="/Final-Project-" component={Home} exact={true} />
+        <Route path="/Final-Project-/Ring" component={Ring} />
+        <Route path="/Final-Project-/Line" component={Line} />
         {/* <Route path="/add-role" component={AddRole} /> */}
       </Switch>
 
