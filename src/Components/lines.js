@@ -33,14 +33,14 @@ export function optimalLines(levels,globalVerticies){
             .attr('height', '1000')
             .attr('width', '1000');
 
-    let lineLenght=900/globalVerticies
+    let lineLenght=1000/globalVerticies
 
     levels.forEach((lightPaths,indexOfLevel) => {
         for(var i=0;i<lightPaths.length-1;i++){
             var indexInLp=lightPaths[i].index
-            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp+1)*lineLenght,indexOfLevel,30,'red')
-            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp*lineLenght)+20,indexOfLevel,30,'black')
-            aadrawLPline(svg,(indexInLp+1)*lineLenght,((indexInLp+1)*lineLenght)+20,indexOfLevel,30,'black')
+            aadrawLPline(svg,indexInLp*lineLenght,(lightPaths[i+1].index)*lineLenght,indexOfLevel,10,'purple')
+            aadrawLPline(svg,indexInLp*lineLenght,(indexInLp*lineLenght)+5,indexOfLevel,20,'purple')
+            aadrawLPline(svg,(lightPaths[i+1].index)*lineLenght,(lightPaths[i+1].index)*lineLenght+5,indexOfLevel,20,'purple')
         }
         
         
@@ -61,7 +61,8 @@ export function optimalLines(levels,globalVerticies){
 // }
 
 export function onlineLines(LParr,globalVerticies){
-    let lineLenght=900/globalVerticies
+
+    let lineLenght=1000/globalVerticies
     let svg = d3.select('.svgpainter2')
                 .append('svg:svg')
                 .attr('height', '1000')
@@ -85,10 +86,11 @@ export function onlineLines(LParr,globalVerticies){
                 LP.wavelength.b=levelsByLP[index][0].wavelength.b
 
                 LP.passing_edges.forEach(partOfLP=>{
-                    aadrawLPline2(svg,partOfLP*lineLenght,(partOfLP*lineLenght),index+1,100,'red',LPindex)
-                    aadrawLPline2(svg,partOfLP*lineLenght,(partOfLP*lineLenght)+20,index+1,100,'black',LPindex)
-                    aadrawLPline2(svg,(partOfLP+1)*lineLenght,((partOfLP+1)*lineLenght)+20,index+1,100,'black',LPindex)
+                    aadrawLPline2(svg,partOfLP*lineLenght,((partOfLP+1)*lineLenght),index+1,100,`rgb(${LP.wavelength.r},${LP.wavelength.g},${LP.wavelength.b})`,LPindex)
+                    
                 })
+                aadrawLPline2(svg,LP.passing_edges[0]*lineLenght,(LP.passing_edges[0]*lineLenght)+20,index+1,100,'black',LPindex)
+                aadrawLPline2(svg,LP.passing_edges[LP.passing_edges.length-1]*lineLenght,(LP.passing_edges[LP.passing_edges.length-1]*lineLenght)+20,index+1,100,'black',LPindex)
                 
                 appended=true
 
@@ -99,10 +101,11 @@ export function onlineLines(LParr,globalVerticies){
             levelsByPassingEdges.push(LP.passing_edges)
             levelsByLP.push([LP])
             LP.passing_edges.forEach(partOfLP=>{
-                aadrawLPline2(svg,partOfLP*lineLenght,(partOfLP*lineLenght),levelsByPassingEdges.length,100,`rgb(${LP.wavelength.r},${LP.wavelength.g},${LP.wavelength.b})`,LPindex)
-                aadrawLPline2(svg,partOfLP*lineLenght,(partOfLP*lineLenght)+20,levelsByPassingEdges.length,100,'black',LPindex)
-                aadrawLPline2(svg,(partOfLP+1)*lineLenght,((partOfLP+1)*lineLenght)+20,levelsByPassingEdges.length,100,'black',LPindex)
+                aadrawLPline2(svg,partOfLP*lineLenght,((partOfLP+1)*lineLenght),levelsByLP.length,100,`rgb(${LP.wavelength.r},${LP.wavelength.g},${LP.wavelength.b})`,LPindex)
+                
             })
+            aadrawLPline2(svg,LP.passing_edges[0]*lineLenght,(LP.passing_edges[0]*lineLenght)+20,levelsByLP.length,100,'black',LPindex)
+            aadrawLPline2(svg,LP.passing_edges[LP.passing_edges.length-1]*lineLenght,(LP.passing_edges[LP.passing_edges.length-1]*lineLenght)+20,levelsByLP.length,100,'black',LPindex)
             
         }
     })

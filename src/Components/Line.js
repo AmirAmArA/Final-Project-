@@ -5,7 +5,7 @@ import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand, randN, createLightpaths} from '../Structures/helpFunc.js';
 import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
-import {optimalLines} from '../Components/lines'
+import {optimalLines,onlineLines} from './lines'
 import d3 from 'd3'
 import '../App.css';
 
@@ -67,7 +67,10 @@ export default class Line extends Component {
       optimalLinesArr[i].push(vertexArr[vertexCount-1])
     }
     console.log(optimalLinesArr);
+    optimalLinesArr.unshift(vertexArr)
     optimalLines(optimalLinesArr,vertexArr.length)
+
+    onlineLines(shuffle(LParr),vertexArr.length)
 
     // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
     // optimalLinesArr.unshift(vertexArr)
