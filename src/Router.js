@@ -8,7 +8,7 @@ const Router = () => (
   <HashRouter>
     <div>
       <Switch>
-        <Route path="/" component={Home} exact={true} />
+        <Route path="/" component={Home} />
         <Route path="/Ring" component={Ring} />
         <Route path="/Line" component={Line} />
       </Switch>
