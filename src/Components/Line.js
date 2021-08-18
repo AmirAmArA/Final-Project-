@@ -101,6 +101,7 @@ export default class Line extends Component {
           </button>
         </div>
         <div className='svgpainter' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}></div>
+        <div className='svgpainter2' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}></div>
         <div className="row"> <Link to="/" className="generalButton">  Go Home </Link></div>
       </div >
     );
