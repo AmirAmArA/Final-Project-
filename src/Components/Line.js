@@ -16,6 +16,13 @@ export default class Line extends Component {
       vertexArr: [],
       edgeArr: [],
       lightpathArr: [],
+      LParr: [],
+      lpCNT: 0,
+      showOffline: false,
+      showOnline: false,
+      lpOnlineCNT: 0,
+      showLpOnlineCNT: false,
+
     };
   }
 
@@ -46,7 +53,20 @@ export default class Line extends Component {
   };
 
   produceLightpaths = () => {
-    
+    const { vertexCount, vertexArr, edgeArr ,lightpathArr, LParr, lpOnlineCNT} = this.state;
+    const optimalLinesNum = rand(2,7);
+    let optimalLinesArr = new Array(optimalLinesNum);
+
+    for (let i = 0; i < optimalLinesNum; i++) {
+      optimalLinesArr[i] = randN(vertexArr);    
+    }
+
+    lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
+    optimalLinesArr.unshift(vertexArr)
+    getSVG(optimalLinesArr, vertexArr.length)
+
+    LParr.push(...shuffle(lightpathArr))
+    this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   }
 
   simulate = () => {
