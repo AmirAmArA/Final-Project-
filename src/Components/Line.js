@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
-import { rand, randN, createLightpaths} from '../Structures/helpFunc.js';
+import { rand, randN, createLightpaths,createLightpathsLine} from '../Structures/helpFunc.js';
 import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
 import d3 from 'd3'
 import '../App.css';
@@ -65,8 +65,9 @@ export default class Line extends Component {
       optimalLinesArr[i].unshift(vertexArr[0])
       optimalLinesArr[i].push(vertexArr[vertexCount-1])
     }
-    console.log(optimalLinesArr);
-    // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
+
+    lightpathArr.push(...createLightpathsLine(optimalLinesArr, vertexArr))
+    
     // optimalLinesArr.unshift(vertexArr)
     // getSVG(optimalLinesArr, vertexArr.length)
 
