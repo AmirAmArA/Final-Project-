@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Ring from "./Components/Ring";
 import Line from "./Components/Line";
 import Home from "./Components/Home";
-import Header from "./Components/Header";
+
 
 const Router = () => (
   <BrowserRouter>

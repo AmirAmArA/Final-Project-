@@ -66,14 +66,14 @@ function drawcircles(arr, globalVertises, nodesWidth, className = '.svgpainter')
 
 
 export function getSVG(circlesArr, globalVertises) {
-    let svg = drawcircles(circlesArr, globalVertises, 3)
+    drawcircles(circlesArr, globalVertises, 3)
 }
 
 
 export function cross(LPaths1,LPaths2){
     for(var i=0;i<LPaths1.length;i++)
         for(var j=0;j<LPaths2.length;j++)
-            if(LPaths1[i]==LPaths2[j]){
+            if(LPaths1[i]===LPaths2[j]){
                 return true
             }
 

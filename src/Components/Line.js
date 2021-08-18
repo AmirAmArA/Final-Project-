@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
-import Lightpath from "../Structures/Lightpath";
 import {
   rand,
   randN,
-  createLightpaths,
   createLightpathsLine,
 } from "../Structures/helpFunc.js";
-import { getSVG, f1, f, shuffle, appear, wait } from "./Circles";
-import { optimalLines, onlineLines, appendLP } from "./lines";
-import d3 from "d3";
+import {  shuffle } from "./Circles";
+import { optimalLines, appendLP } from "./lines";
+// import d3 from "d3";
 import "../App.css";
 
 export default class Line extends Component {
@@ -61,10 +59,9 @@ export default class Line extends Component {
     const {
       vertexCount,
       vertexArr,
-      edgeArr,
+      
       lightpathArr,
       LParr,
-      lpOnlineCNT,
     } = this.state;
     const optimalLinesNum = rand(2, 7);
     this.setState({ levelsCNT: optimalLinesNum });
@@ -120,8 +117,8 @@ export default class Line extends Component {
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
     } else {
-      for (var j = 0; j < paths.length; j++) {
-        paths[j].removeAttribute("display");
+      for (var i = 0; i < paths.length; i++) {
+        paths[i].removeAttribute("display");
       }
     }
     this.setState({ lpCNT: this.state.lpCNT + 1 });
@@ -134,12 +131,16 @@ export default class Line extends Component {
   };
 
   reset = () => {
-    this.state.vertexArr = [];
-    this.state.edgeArr = [];
-    this.state.lightpathArr = [];
-    this.state.LParr = [];
+    
+    
+    
+    
 
     this.setState({
+      vertexArr : [],
+edgeArr : [],
+lightpathArr : [],
+LParr : [],
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
@@ -216,14 +217,14 @@ export default class Line extends Component {
             </h3>
             <h4>
               {this.state.showOnline
-                ? this.state.LParr[this.state.lpCNT] != undefined
+                ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "Next Lightpath start is : " +
                     this.state.LParr[this.state.lpCNT].startVertex
                   : null
                 : null}{" "}
               <br />{" "}
               {this.state.showOnline
-                ? this.state.LParr[this.state.lpCNT] != undefined
+                ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "end is : " + this.state.LParr[this.state.lpCNT].endVertex
                   : null
                 : null}

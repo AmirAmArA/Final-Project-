@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
-import Lightpath from "../Structures/Lightpath";
+
 import { rand, randN, createLightpaths } from "../Structures/helpFunc.js";
-import { getSVG, f1, f, shuffle, appear, wait } from "./Circles";
-import d3 from "d3";
+import { getSVG, f1, shuffle } from "./Circles";
+
 import "../App.css";
 
 export default class Ring extends Component {
@@ -55,7 +55,6 @@ export default class Ring extends Component {
 
   produceLightpathsOptimal = () => {
     const {
-      vertexCount,
       vertexArr,
       edgeArr,
       lightpathArr,
@@ -100,8 +99,8 @@ export default class Ring extends Component {
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
     } else {
-      for (var j = 0; j < paths.length; j++) {
-        paths[j].removeAttribute("display");
+      for (var i = 0; i < paths.length; i++) {
+        paths[i].removeAttribute("display");
       }
     }
     this.setState({ lpCNT: this.state.lpCNT + 1 });
@@ -114,12 +113,12 @@ export default class Ring extends Component {
   };
 
   reset = () => {
-    this.state.vertexArr = [];
-    this.state.edgeArr = [];
-    this.state.lightpathArr = [];
-    this.state.LParr = [];
-
+    
     this.setState({
+      vertexArr : [],
+edgeArr : [],
+lightpathArr : [],
+LParr : [],
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
@@ -192,14 +191,14 @@ export default class Ring extends Component {
             </h3>
             <h4>
               {this.state.showOnline
-                ? this.state.LParr[this.state.lpCNT] != undefined
+                ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "Next Lightpath start is : " +
                     this.state.LParr[this.state.lpCNT].startVertex
                   : null
                 : null}{" "}
               <br />{" "}
               {this.state.showOnline
-                ? this.state.LParr[this.state.lpCNT] != undefined
+                ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "end is : " + this.state.LParr[this.state.lpCNT].endVertex
                   : null
                 : null}

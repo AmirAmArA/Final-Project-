@@ -31,7 +31,7 @@ export function optimalLines(
   svgclassName = ".svgpainter",
   svgHeight = false
 ) {
-  if (svgHeight == false) {
+  if (svgHeight === false) {
     svgHeight = levels.length * 70 + 20;
   }
 
