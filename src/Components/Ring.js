@@ -4,8 +4,9 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 import Lightpath from "../Structures/Lightpath";
 import { rand, randN, createLightpaths } from '../Structures/helpFunc.js';
-import { getSVG,f1,f,shuffle ,appear, wait} from './Circles'
+import { getSVG, f1, f, shuffle, appear, wait } from './Circles'
 import d3 from 'd3'
+import '../App.css';
 
 export default class Ring extends Component {
   constructor() {
@@ -16,7 +17,12 @@ export default class Ring extends Component {
       edgeArr: [],
       lightpathArr: [],
       LParr: [],
-      lpCNT:0
+      lpCNT: 0,
+      showOffline: false,
+      showOnline: false,
+      lpOnlineCNT: 0,
+      showLpOnlineCNT: false,
+
     };
   }
 
@@ -45,12 +51,11 @@ export default class Ring extends Component {
           break;
       }
     }
-
     console.log(vertexArr, edgeArr);
   };
 
   produceLightpathsOptimal = () => {
-    const { vertexCount, vertexArr, edgeArr, lightpathArr,LParr } = this.state;
+    const { vertexCount, vertexArr, edgeArr, lightpathArr, LParr, lpOnlineCNT } = this.state;
     const optimalCirclesNum = rand(2, 7);
 
     let optimalCirclesArr = new Array(optimalCirclesNum);
@@ -60,107 +65,122 @@ export default class Ring extends Component {
       optimalCirclesArr[i] = randN(vertexArr)
 
     }
-    
+
     lightpathArr.push(...createLightpaths(optimalCirclesArr, vertexArr))
     console.log(lightpathArr);
 
     optimalCirclesArr.unshift(vertexArr)
-    
+
     getSVG(optimalCirclesArr, vertexArr.length)
     LParr.push(...shuffle(lightpathArr))
     console.log(LParr);
-    // f([vertexArr],LParr,vertexArr.length)
-    f1([vertexArr],LParr,vertexArr.length)
-   
-    
-
-
+    this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   }
 
   appear = () => {
-
-    const {LParr,lpCNT } = this.state;
+    const { LParr, lpCNT } = this.state;
     console.log(lpCNT);
-    //let circlesByLP=getCircles(LParr)
-    let paths=document.querySelectorAll(`.p${lpCNT}`)
-    console.log('-----------------')
-    console.log(paths)
-    console.log('-----------------')
-    if(lpCNT >= LParr.length) {
-      
-      console.log('Out of Boundry')
+    let paths = document.querySelectorAll(`.p${lpCNT}`)
+    if (lpCNT >= LParr.length) {
+
+      this.setState({ showLpOnlineCNT: true })
     } else {
 
-      
-      for(var j=0;j<LParr[lpCNT].passing_edges.length;j++){
+
+      for (var j = 0; j < LParr[lpCNT].passing_edges.length; j++) {
         paths[j].removeAttribute('display')
       }
-      
-    } 
+    }
+    paths = document.querySelectorAll(`.p${lpCNT}999`)
 
+    if (lpCNT >= LParr.length) {
 
-    //-----------------------
-    paths=document.querySelectorAll(`.p${lpCNT}999`)
-    console.log('****************')
-    console.log(paths)
-    console.log('****************')
-    if(lpCNT >= LParr.length) {
-      
-      console.log('Out of Boundry')
+      this.setState({ showLpOnlineCNT: true })
     } else {
 
-      
-      for(var j=0;j<paths.length;j++){
+
+      for (var j = 0; j < paths.length; j++) {
         paths[j].removeAttribute('display')
       }
-      
-    } 
-    this.setState({lpCNT: this.state.lpCNT + 1})
-
-    // for(var i=0;i<LParr.length;i++){
-    //     let paths=document.querySelectorAll(`.p${i}`)
-    //     for(var j=0;j<LParr.passing_edges;j++){
-    //       paths[j].removeAttribute('display')
-    //     }
-
-    //     wait(500)
-    // }
-}
+    }
+    this.setState({ lpCNT: this.state.lpCNT + 1 })
+  }
 
   simulate = () => {
+    this.setState({ showOffline: true, showOnline: true })
     this.produceGraph();
     this.produceLightpathsOptimal();
-    
   };
 
+  reset = () => {
+    this.state.vertexArr = [];
+    this.state.edgeArr = [];
+    this.state.lightpathArr = [];
+    this.state.LParr = [];
+
+    this.setState({
+      lpOnlineCNT: 0,
+      lpCNT: 0,
+      showOffline: false,
+      showOnline: false,
+      vertexCount: 0,
+      showLpOnlineCNT: false
+    })
+    document.querySelector('.svgpainter').innerHTML = '';
+    document.querySelector('.svgpainter3').innerHTML = '';
+  }
+
   render() {
-    const {LParr} = this.state;
     return (
       <div className="container">
-        <h1>How Many Nodes would you like to test the algorithm on? (Ring)</h1>
-        <div className="row-md-12">
+        <h1 className="f1">How Many Nodes would you like to test the algorithm on? (Ring)</h1>
+        <div className="tc">
           <input
             type="text"
-            placeholder="Enter the Desired Number of Nodes"
+            placeholder="Number of Nodes"
             width="40%"
+            style={{ borderRadius: '10px' }}
             onBlur={this.loadState}
+            className="pa1 ma2 ba b--light-blue "
           />
-          <button className="generalButton" onClick={this.simulate}>
-            Simulate
-          </button>
-          <div className='svgpainter'>
+
+
+          <div>
+            <Link to="/" className="generalButton">  Go Home </Link>
+            <button className="generalButton" onClick={this.simulate}>
+              Simulate
+            </button>
+            <button className="generalButton" onClick={this.appear}>Step Over</button>
+            <button className="generalButton" onClick={this.reset}>Reset</button>
+          </div>
+        </div>
+        <div className="tc">
+          {this.state.showLpOnlineCNT ?
+            <h3>
+              The C-Ratio in this Simulation is : {this.state.lpOnlineCNT / this.state.LParr.length}</h3> : null}
+        </div>
+        <div className="container2">
+          <div className='tc ' style={{ display: this.state.showOffline ? null : 'none' }}>
+            <h3>Optimal Solution <br /> Total ADMs: {this.state.LParr.length}</h3>
+            <div className='tc svgpainter ' ></div>
 
           </div>
-          {/* <div className='svgpainter2' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}>
 
-          </div> */}
-          <div className='svgpainter3' style={{width : '1000px', height:'1000px',transform:'all 1s ease-in-out'}}>
+          <div className='tc ' style={{ display: this.state.showOnline ? null : 'none' }}>
 
+            <h3>
+              OnLine minADM Solution <br />Total ADMs:
+              {this.state.showLpOnlineCNT ? this.state.lpOnlineCNT : null}
+            </h3>
+            <h4>
+              {this.state.showOnline ? this.state.LParr[this.state.lpCNT] != undefined ? 'Next Lightpath start is : ' + this.state.LParr[this.state.lpCNT].startVertex : null : null}  <br /> {this.state.showOnline ? this.state.LParr[this.state.lpCNT] != undefined ? 'end is : ' + this.state.LParr[this.state.lpCNT].endVertex : null : null}
+            </h4>
+            <div className='tc svgpainter3' style={{ transform: 'all 1s ease-in-out' }}></div>
           </div>
 
         </div>
-          <button className="generalButton" onClick={this.appear}>sex</button>
-        <div className="row-md-12 mt-5"> <Link to="/" className="generalButton">  Go Home </Link></div>
+
+
       </div>
     );
   }
