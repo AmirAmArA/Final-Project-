@@ -6,7 +6,7 @@ import Home from "./Components/Home";
 import Header from "./Components/Header";
 
 const Router = () => (
-  <HashRouter>
+  <HashRouter basename='/'>
     <div>
       {/* <Header /> */}
       <Switch>
