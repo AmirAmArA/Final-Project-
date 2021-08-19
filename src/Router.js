@@ -9,8 +9,8 @@ const Router = () => (
     <div>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/Ring" component={Ring} />
-        <Route path="/Line" component={Line} />
+        <Route path="Final-Project-/Ring" component={Ring} />
+        <Route path="Final-Project-/Line" component={Line} />
       </Switch>
     </div>
   </HashRouter>
