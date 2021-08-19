@@ -5,7 +5,7 @@ import Line from "./Components/Line";
 import Home from "./Components/Home";
 
 const Router = () => (
-  <HashRouter>
+  <HashRouter basename={process.env.PUBLIC_URL + '/'}>
     <div>
       <Switch>
         <Route path="/" component={Home} />
