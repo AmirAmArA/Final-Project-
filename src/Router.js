@@ -5,12 +5,12 @@ import Line from "./Components/Line";
 import Home from "./Components/Home";
 
 const Router = () => (
-  <HashRouter basename={process.env.PUBLIC_URL + '/'}>
+  <HashRouter basename={process.env.PUBLIC_URL}>
     <div>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="Final-Project-/Ring" component={Ring} />
-        <Route path="Final-Project-/Line" component={Line} />
+        <Route path="/Ring/" component={Ring} />
+        <Route path="/Line/" component={Line} />
       </Switch>
     </div>
   </HashRouter>

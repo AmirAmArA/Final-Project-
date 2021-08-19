@@ -16,9 +16,9 @@ export default class Home extends Component {
         <div>
           <Link to="/" className="generalButton"> More Info</Link>
 
-          <Link to="Final-Project-/Ring/Ring" className="generalButton"> Ring Topology</Link>
+          <Link to="/Ring" className="generalButton"> Ring Topology</Link>
 
-          <Link to="Final-Project-/Ring/Line" className="generalButton"> Line Topology</Link>
+          <Link to="/Line" className="generalButton"> Line Topology</Link>
         </div>
         <h4 style={{ alignSelf: "center" }}>
           This Project is Brought to you by Amir & Fida
