@@ -138,9 +138,9 @@ export default class Line extends Component {
 
     this.setState({
       vertexArr : [],
-edgeArr : [],
-lightpathArr : [],
-LParr : [],
+      edgeArr : [],
+      lightpathArr : [],
+      LParr : [],
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
