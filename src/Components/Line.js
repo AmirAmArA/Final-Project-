@@ -110,6 +110,7 @@ export default class Line extends Component {
     const { LParr, lpCNT } = this.state;
     console.log(lpCNT);
     let paths = document.querySelectorAll(`.p${lpCNT}`);
+
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
     } else {
@@ -117,6 +118,7 @@ export default class Line extends Component {
         paths[j].removeAttribute("display");
       }
     }
+
     paths = document.querySelectorAll(`.p${lpCNT}999`);
 
     if (lpCNT >= LParr.length) {
@@ -127,6 +129,8 @@ export default class Line extends Component {
       }
     }
     this.setState({ lpCNT: this.state.lpCNT + 1 });
+
+    
   };
 
   simulate = () => {
