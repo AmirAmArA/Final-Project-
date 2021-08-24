@@ -100,6 +100,11 @@ export default class Line extends Component {
     // LParr.push(...shuffle(lightpathArr))
     // this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   };
+ 
+  completeRun = () => {
+    // while(!this.state.showLpOnlineCNT) (this.appear());
+    console.log('test');
+  }
 
   appear = () => {
     const { LParr, lpCNT } = this.state;
@@ -131,10 +136,6 @@ export default class Line extends Component {
   };
 
   reset = () => {
-    
-    
-    
-    
 
     this.setState({
       vertexArr : [],
@@ -149,6 +150,7 @@ export default class Line extends Component {
       showLpOnlineCNT: false,
       levelsCNT: 0,
     });
+    document.querySelector("input").value = "";
     document.querySelector(".svgpainter").innerHTML = "";
     document.querySelector(".svgpainter2").innerHTML = "";
   };
@@ -177,6 +179,9 @@ export default class Line extends Component {
             </button>
             <button className="generalButton" onClick={this.appear}>
               Step Over
+            </button>
+            <button className="generalButton" onClick={this.completeRun}>
+              Compelete Run
             </button>
             <button className="generalButton" onClick={this.reset}>
               Reset

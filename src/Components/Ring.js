@@ -113,19 +113,20 @@ export default class Ring extends Component {
   };
 
   reset = () => {
-    
     this.setState({
       vertexArr : [],
-edgeArr : [],
-lightpathArr : [],
-LParr : [],
+      edgeArr : [],
+      lightpathArr : [],
+      LParr : [],
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
       showOnline: false,
       vertexCount: 0,
       showLpOnlineCNT: false,
+
     });
+    document.querySelector("input").value = '';
     document.querySelector(".svgpainter").innerHTML = "";
     document.querySelector(".svgpainter3").innerHTML = "";
   };
