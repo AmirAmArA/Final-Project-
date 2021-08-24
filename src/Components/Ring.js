@@ -50,7 +50,6 @@ export default class Ring extends Component {
           break;
       }
     }
-    console.log(vertexArr, edgeArr);
   };
 
   produceLightpathsOptimal = () => {
@@ -70,18 +69,44 @@ export default class Ring extends Component {
     }
 
     lightpathArr.push(...createLightpaths(optimalCirclesArr, vertexArr));
-    console.log(lightpathArr);
 
     optimalCirclesArr.unshift(vertexArr);
 
     getSVG(optimalCirclesArr, vertexArr.length);
     LParr.push(...shuffle(lightpathArr));
-    console.log(LParr);
     this.setState({
       lpOnlineCNT:
         lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length),
     });
   };
+  
+  completeRun = () => {
+    const { LParr } = this.state;
+    let counter = 0;
+
+    while(counter<LParr.length) {
+
+      let paths = document.querySelectorAll(`.p${counter}`);
+      
+      for (let j = 0; j < LParr[counter].passing_edges.length; j++) {
+        paths[j].removeAttribute("display");
+      }
+      let nodes = document.querySelectorAll(`.p${counter}999`);
+      
+      for (let i = 0; i < nodes.length; i++) {
+        console.log(nodes[i], i);
+        nodes[i].removeAttribute("display");
+      }
+      counter = counter + 1;
+
+    }
+
+    this.setState({ lpCNT: this.state.lpCNT + counter});
+    this.setState({ showLpOnlineCNT: true });
+
+    
+  }
+
 
   appear = () => {
     const { LParr, lpCNT } = this.state;
@@ -90,7 +115,7 @@ export default class Ring extends Component {
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
     } else {
-      for (var j = 0; j < LParr[lpCNT].passing_edges.length; j++) {
+      for (let j = 0; j < LParr[lpCNT].passing_edges.length; j++) {
         paths[j].removeAttribute("display");
       }
     }
@@ -99,7 +124,7 @@ export default class Ring extends Component {
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
     } else {
-      for (var i = 0; i < paths.length; i++) {
+      for (let i = 0; i < paths.length; i++) {
         paths[i].removeAttribute("display");
       }
     }
@@ -155,6 +180,9 @@ export default class Ring extends Component {
             </button>
             <button className="generalButton" onClick={this.appear}>
               Step Over
+            </button>
+            <button className="generalButton" onClick={this.completeRun}>
+              Compelete Run
             </button>
             <button className="generalButton" onClick={this.reset}>
               Reset

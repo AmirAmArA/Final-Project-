@@ -101,9 +101,32 @@ export default class Line extends Component {
     // this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   };
  
+
   completeRun = () => {
-    // while(!this.state.showLpOnlineCNT) (this.appear());
-    console.log('test');
+    const { LParr } = this.state;
+    let counter = 0;
+
+    while(counter<LParr.length) {
+
+      let paths = document.querySelectorAll(`.p${counter}`);
+      
+      for (let j = 0; j < LParr[counter].passing_edges.length; j++) {
+        paths[j].removeAttribute("display");
+      }
+      let nodes = document.querySelectorAll(`.p${counter}999`);
+      
+      for (let i = 0; i < nodes.length; i++) {
+        console.log(nodes[i], i);
+        nodes[i].removeAttribute("display");
+      }
+      counter = counter + 1;
+
+    }
+
+    this.setState({ lpCNT: this.state.lpCNT + counter});
+    this.setState({ showLpOnlineCNT: true });
+
+    
   }
 
   appear = () => {
@@ -130,7 +153,7 @@ export default class Line extends Component {
     }
     this.setState({ lpCNT: this.state.lpCNT + 1 });
 
-    
+
   };
 
   simulate = () => {
