@@ -7,7 +7,7 @@ import {
   randN,
   createLightpathsLine,
 } from "../Structures/helpFunc.js";
-import {  shuffle } from "./Circles";
+import { shuffle } from "./Circles";
 import { optimalLines, appendLP } from "./lines";
 // import d3 from "d3";
 import "../App.css";
@@ -28,6 +28,8 @@ export default class Line extends Component {
       lpOnlineCNT: 0,
       showLpOnlineCNT: false,
       levelsCNT: 0,
+      showSimulateButton: false
+
     };
   }
 
@@ -53,11 +55,13 @@ export default class Line extends Component {
   };
 
   loadState = (event) => {
-    if(event.target.placeholder === 'Nodes') {
+    if (event.target.placeholder === 'Nodes') {
       this.setState({ vertexCount: event.target.value });
-    } else if(event.target.placeholder === 'Lines') {
+    } else if (event.target.placeholder === 'Lines') {
       this.setState({ linesCount: event.target.value });
     }
+    if (this.state.linesCount === 0 || this.state.vertexCount === 0) { this.setState({ showSimulateButton: false }) } else { this.setState({ showSimulateButton: true }) }
+    console.log(this.state.linesCount, this.state.vertexCount, 'aloooo');
   };
 
   produceLightpaths = () => {
@@ -97,21 +101,21 @@ export default class Line extends Component {
         appendLP(vertexArr, LParr, vertexArr.length),
     });
   };
- 
+
 
   completeRun = () => {
     const { LParr } = this.state;
     let counter = 0;
 
-    while(counter<LParr.length) {
+    while (counter < LParr.length) {
 
       let paths = document.querySelectorAll(`.p${counter}`);
-      
+
       for (let j = 0; j < LParr[counter].passing_edges.length; j++) {
         paths[j].removeAttribute("display");
       }
       let nodes = document.querySelectorAll(`.p${counter}999`);
-      
+
       for (let i = 0; i < nodes.length; i++) {
         nodes[i].removeAttribute("display");
       }
@@ -119,10 +123,10 @@ export default class Line extends Component {
 
     }
 
-    this.setState({ lpCNT: this.state.lpCNT + counter});
+    this.setState({ lpCNT: this.state.lpCNT + counter });
     this.setState({ showLpOnlineCNT: true });
 
-    
+
   }
 
   appear = () => {
@@ -161,11 +165,11 @@ export default class Line extends Component {
   reset = () => {
 
     this.setState({
-      vertexArr : [],
-      edgeArr : [],
-      lightpathArr : [],
-      LParr : [],
-      linesCount:0,
+      vertexArr: [],
+      edgeArr: [],
+      lightpathArr: [],
+      LParr: [],
+      linesCount: 0,
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
@@ -173,6 +177,8 @@ export default class Line extends Component {
       vertexCount: 0,
       showLpOnlineCNT: false,
       levelsCNT: 0,
+      showSimulateButton: false
+
     });
     document.querySelectorAll("input")[0].value = "";
     document.querySelectorAll("input")[1].value = "";
@@ -188,43 +194,48 @@ export default class Line extends Component {
         <div className="tc">
           <div>
 
-          <p>Enter The Number Of Nodes</p>
-          <input
-            type="text"
-            placeholder="Nodes"
-            width="40%"
-            style={{ borderRadius: "10px" }}
-            onBlur={this.loadState}
-            className="pa1 ma2 ba b--light-blue "
+            <p>Enter The Number Of Nodes</p>
+            <input
+              type="text"
+              placeholder="Nodes"
+              width="40%"
+              style={{ borderRadius: "10px" }}
+              onBlur={this.loadState}
+              className="pa1 ma2 ba b--light-blue "
             />
-            </div>
+          </div>
           <div>
 
-          <p>Enter The Number Of Lines</p>
-          <input
-            type="text"
-            placeholder="Lines"
-            width="40%"
-            style={{ borderRadius: "10px" }}
-            onBlur={this.loadState}
-            className="pa1 ma2 ba b--light-blue "
+            <p>Enter The Number Of Lines</p>
+            <input
+              type="text"
+              placeholder="Lines"
+              width="40%"
+              style={{ borderRadius: "10px" }}
+              onChange={this.loadState}
+              className="pa1 ma2 ba b--light-blue "
             />
-            </div>
+          </div>
 
           <div>
             <Link to="/" className="generalButton">
               {" "}
               Go Home{" "}
             </Link>
-            <button className="generalButton" onClick={this.simulate}>
-              Simulate
-            </button>
-            <button className="generalButton" onClick={this.appear}>
-              Step Over
-            </button>
-            <button className="generalButton" onClick={this.completeRun}>
-              Compelete Run
-            </button>
+            {!this.state.showSimulateButton ? null :
+              <button className="generalButton" onClick={this.simulate}>
+                Simulate
+              </button>}
+            {!this.state.showOffline ? null :
+
+              <button className="generalButton" onClick={this.appear}>
+                Step Over
+              </button>}
+            {!this.state.showOnline ? null :
+
+              <button className="generalButton" onClick={this.completeRun}>
+                Compelete Run
+              </button>}
             <button className="generalButton" onClick={this.reset}>
               Reset
             </button>
@@ -266,7 +277,7 @@ export default class Line extends Component {
               {this.state.showOnline
                 ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "Next Lightpath start is : " +
-                    this.state.LParr[this.state.lpCNT].startVertex
+                  this.state.LParr[this.state.lpCNT].startVertex
                   : null
                 : null}{" "}
               <br />{" "}

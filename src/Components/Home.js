@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+
 export default class Home extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container tc pa4">
         <h1>
-          Today we are going to present to you the span MinADM Algorithm and
+          Today we are going to present to you the MinADM Algorithm and
           simulate it!
         </h1>
         <h3>Buckle Up!</h3>
