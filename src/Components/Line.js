@@ -17,6 +17,7 @@ export default class Line extends Component {
     super();
     this.state = {
       vertexCount: 0,
+      linesCount: 0,
       vertexArr: [],
       edgeArr: [],
       lightpathArr: [],
@@ -52,18 +53,22 @@ export default class Line extends Component {
   };
 
   loadState = (event) => {
-    this.setState({ vertexCount: event.target.value });
+    if(event.target.placeholder === 'Nodes') {
+      this.setState({ vertexCount: event.target.value });
+    } else if(event.target.placeholder === 'Lines') {
+      this.setState({ linesCount: event.target.value });
+    }
   };
 
   produceLightpaths = () => {
     const {
       vertexCount,
       vertexArr,
-      
+      linesCount,
       lightpathArr,
       LParr,
     } = this.state;
-    const optimalLinesNum = rand(2, 7);
+    let optimalLinesNum = parseInt(linesCount, 10);
     this.setState({ levelsCNT: optimalLinesNum });
 
     let optimalLinesArr = new Array(optimalLinesNum);
@@ -91,14 +96,6 @@ export default class Line extends Component {
         LParr.length +
         appendLP(vertexArr, LParr, vertexArr.length),
     });
-
-    // lightpathArr.push(...createLightpaths(optimalLinesArr, vertexArr))
-
-    // optimalLinesArr.unshift(vertexArr)
-    // getSVG(optimalLinesArr, vertexArr.length)
-
-    // LParr.push(...shuffle(lightpathArr))
-    // this.setState({ lpOnlineCNT: lpOnlineCNT + f1([vertexArr], LParr, vertexArr.length, edgeArr.length) })
   };
  
 
@@ -116,7 +113,6 @@ export default class Line extends Component {
       let nodes = document.querySelectorAll(`.p${counter}999`);
       
       for (let i = 0; i < nodes.length; i++) {
-        console.log(nodes[i], i);
         nodes[i].removeAttribute("display");
       }
       counter = counter + 1;
@@ -169,6 +165,7 @@ export default class Line extends Component {
       edgeArr : [],
       lightpathArr : [],
       LParr : [],
+      linesCount:0,
       lpOnlineCNT: 0,
       lpCNT: 0,
       showOffline: false,
@@ -177,7 +174,9 @@ export default class Line extends Component {
       showLpOnlineCNT: false,
       levelsCNT: 0,
     });
-    document.querySelector("input").value = "";
+    document.querySelectorAll("input")[0].value = "";
+    document.querySelectorAll("input")[1].value = "";
+
     document.querySelector(".svgpainter").innerHTML = "";
     document.querySelector(".svgpainter2").innerHTML = "";
   };
@@ -185,16 +184,32 @@ export default class Line extends Component {
   render() {
     return (
       <div className="container">
-        <h1>How Many Nodes would you like to test the algorithm on? (Line)</h1>
+        <h1>Line Topology Simulation</h1>
         <div className="tc">
+          <div>
+
+          <p>Enter The Number Of Nodes</p>
           <input
             type="text"
-            placeholder="Number of Nodes"
+            placeholder="Nodes"
             width="40%"
             style={{ borderRadius: "10px" }}
             onBlur={this.loadState}
             className="pa1 ma2 ba b--light-blue "
-          />
+            />
+            </div>
+          <div>
+
+          <p>Enter The Number Of Lines</p>
+          <input
+            type="text"
+            placeholder="Lines"
+            width="40%"
+            style={{ borderRadius: "10px" }}
+            onBlur={this.loadState}
+            className="pa1 ma2 ba b--light-blue "
+            />
+            </div>
 
           <div>
             <Link to="/" className="generalButton">
