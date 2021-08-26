@@ -6,7 +6,6 @@ const rand = (min, max) => {
 };
 
 const randN = (array) => {
-  console.log(array, "yoooooooooooooo");
   let len = array.length;
 
   let n = Math.floor(Math.random() * len - 3) + 3;
@@ -74,7 +73,6 @@ const createLightpathsLine = (optimalLinesArr, vertexArr) => {
         )
       );
     }
-    // lightpaths.push(new Lightpath({ r: rand(0,255), g: rand(0,255), b: rand(0,255) }, line[circle.length - 1].index, line[0].index, lightpaths.length))
   }
   lightpaths.forEach((lightpath) => {
     lightpath.passing_edges = checkPathL(
@@ -103,7 +101,6 @@ const checkPathL = (v1, v2, vertex) => {
 };
 
 function check_path(v1, v2, vertex) {
-  // console.log(vertex[v1], vertex[v2]);
 
   let start = new Vertex();
   let target = new Vertex();
@@ -119,16 +116,8 @@ function check_path(v1, v2, vertex) {
     current = { ...vertex[current.neighbor_vertex2] };
   }
 
-  console.log(edges_on_the_way);
   return edges_on_the_way;
 
-  // let temp = edge;
-
-  // for (let i = 0; i < edges_on_the_way.length; i++) {
-
-  // }
-  // console.log(edges_on_the_way.filter(edge=> edge));
-  // return edges_on_the_way;
 }
 
 export { randN, rand, createLightpaths, createLightpathsLine };

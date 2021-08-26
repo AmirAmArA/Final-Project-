@@ -39,6 +39,7 @@ export function optimalLines(
     .select(svgclassName)
     .append("svg:svg")
     .attr("height", `${svgHeight}`)
+    .attr("display", `none`)
     .attr("width", "250");
 
   let lineLenght = 250 / globalVerticies;
@@ -108,8 +109,7 @@ function drawVertesesForLines(levels, svg, globalVerticies) {
 
 export function onlineLines(mainLine, LParr, globalVerticies) {
   let svg = optimalLines([mainLine], globalVerticies, ".svgpainter2");
-  console.log("=================");
-  console.log(LParr);
+
 
   let lineLenght = 250 / globalVerticies;
 
@@ -210,17 +210,57 @@ export function appendLP(mainLine, LParr, globalVerticies) {
     }
   });
 
-  console.log("=================");
-  console.log(LParr);
-
   let svg = drawLPS(mainLine, levelsByLP, globalVerticies);
   drawVertesesForLines(levelsByLP, svg, globalVerticies);
   return levelsByLP.length;
 }
 
+export function appendLPAVG(mainLine, LParr, globalVerticies) {
+  let levelsByPassingEdges = [];
+  let levelsByLP = [];
+  LParr.forEach((LP, LPindex) => {
+    LP.index = LPindex;
+    let appended = false;
+    levelsByPassingEdges.forEach((level, index) => {
+      if (appended) {
+        return;
+      }
+
+      // check if we can append the current light path to the current level
+      if (
+        !cross(level, LP.passing_edges) &&
+        checkCrossVerteses(LP, levelsByLP[index])
+      ) {
+        // append the light path   ----------------------
+        levelsByPassingEdges[index] = levelsByPassingEdges[index].concat(
+          LP.passing_edges
+        );
+        levelsByLP[index].push(LP);
+        //------------------------------------------------
+
+        // making the light paths color as his level   -----------------
+        LP.wavelength.r = levelsByLP[index][0].wavelength.r;
+        LP.wavelength.g = levelsByLP[index][0].wavelength.g;
+        LP.wavelength.b = levelsByLP[index][0].wavelength.b;
+        //------------------------------------------------
+
+        appended = true;
+      }
+    });
+
+    if (!appended) {
+      levelsByPassingEdges.push(LP.passing_edges);
+      levelsByLP.push([LP]);
+    }
+  });
+
+  // let svg = drawLPS(mainLine, levelsByLP, globalVerticies);
+  // drawVertesesForLines(levelsByLP, svg, globalVerticies);
+  return levelsByLP.length;
+}
+
 function drawLPS(mainLine, levels, globalVerticies) {
-  console.log("=================");
-  console.log(levels);
+
   let svg = optimalLines(
     [mainLine],
     globalVerticies,

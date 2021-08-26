@@ -4,7 +4,7 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 
 import { rand, randN, createLightpaths } from "../Structures/helpFunc.js";
-import { getSVG, f1, shuffle } from "./Circles";
+import { getSVG, f1, shuffle, onlineADMsnoDrawing} from "./Circles";
 
 import "../App.css";
 
@@ -23,7 +23,13 @@ export default class Ring extends Component {
       showOnline: false,
       lpOnlineCNT: 0,
       showLpOnlineCNT: false,
-      showSimulateButton: false
+      showSimulateButton: false,
+      showInputFields: true,
+      showAVG: false,
+      showAVGField: false,
+      showAVGcRatioField: false,
+      cAVGworstCase: 0,
+      cAVG: 0,
     };
   }
 
@@ -34,7 +40,6 @@ export default class Ring extends Component {
     } else if (event.target.placeholder === 'Circles') {
       this.setState({ circlesCount: event.target.value });
     }
-    console.log(this.state.circlesCount, this.state.vertexCount, 'aloooo');
   };
 
   produceGraph = () => {
@@ -89,6 +94,34 @@ export default class Ring extends Component {
     });
   };
 
+  calcAVG = () => {
+    this.setState({ showLpOnlineCNT: false, showAVGField: true, showOffline: false, showOnline: false, showAVG: false, })
+  }
+
+
+  stat = () => {
+    const {
+      vertexArr,
+      lightpathArr,
+      LParr,
+      edgeArr
+    } = this.state;
+
+    let cRatioAVG = 0
+    let max = 0
+
+    for (let i = 0; i < document.querySelector('#AVG').value; i++) {
+      let onlineADMsinthisRun = onlineADMsnoDrawing([vertexArr], shuffle(lightpathArr), vertexArr.length, edgeArr.length)
+      let offlineADMsinthisRun = this.state.LParr.length
+
+      cRatioAVG = cRatioAVG + (onlineADMsinthisRun / offlineADMsinthisRun)
+      if ((onlineADMsinthisRun / offlineADMsinthisRun) > max) max = onlineADMsinthisRun / offlineADMsinthisRun;
+    }
+    this.setState({ cAVGworstCase: max.toFixed(2), showAVGcRatioField: true, cAVG: (cRatioAVG / document.querySelector('#AVG').value).toFixed(2) })
+
+
+  }
+
   completeRun = () => {
     const { LParr } = this.state;
     let counter = 0;
@@ -112,13 +145,26 @@ export default class Ring extends Component {
     this.setState({ lpCNT: this.state.lpCNT + counter });
     this.setState({ showLpOnlineCNT: true });
 
+  }
+
+  showOptimalSolution = () => {
+
+    document.querySelector('.svgpainter').querySelector('svg').attributes.display.value === 'none' ? document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = '' : document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = 'none'
 
   }
 
+  showOnlineSolution = () => {
+    document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value === 'none' ? document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value = '' : document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value = 'none'
 
+  }
   appear = () => {
+    console.log();
+    document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = ''
+    document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value = ''
+    // document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = ''
+    // document.querySelector('.svgpainter2').querySelector('svg').attributes.display.value = ''
+
     const { LParr, lpCNT } = this.state;
-    console.log(lpCNT);
     let paths = document.querySelectorAll(`.p${lpCNT}`);
     if (lpCNT >= LParr.length) {
       this.setState({ showLpOnlineCNT: true });
@@ -141,13 +187,20 @@ export default class Ring extends Component {
 
   simulate = () => {
 
-    this.setState({ showOffline: true, showOnline: true, showSimulateButton: false });
+    this.setState({ showOffline: true, showOnline: true, showSimulateButton: false, showInputFields: false, showAVG: true });
     this.produceGraph();
     this.produceLightpathsOptimal();
 
   };
 
   reset = () => {
+    if (this.state.showInputFields) {
+      document.querySelectorAll("input")[0].value = ""
+      document.querySelectorAll("input")[1].value = ""
+    }
+    document.querySelector(".svgpainter").innerHTML = "";
+    document.querySelector(".svgpainter3").innerHTML = "";
+
     this.setState({
       vertexArr: [],
       edgeArr: [],
@@ -161,19 +214,23 @@ export default class Ring extends Component {
       vertexCount: 0,
       showLpOnlineCNT: false,
       showSimulateButton: false,
+      showInputFields: true,
+      showAVG: false,
+      showAVGField: false,
+      showAVGcRatioField: false,
+      cAVGworstCase: 0,
+      cAVG: 0,
 
     });
-    document.querySelectorAll("input")[0].value = "";
-    document.querySelectorAll("input")[1].value = "";
-    document.querySelector(".svgpainter").innerHTML = "";
-    document.querySelector(".svgpainter3").innerHTML = "";
+
   };
 
   render() {
     return (
       <div className="container">
         <h1>Ring Toplogy Simulation</h1>
-        <div className="tc">
+
+        {this.state.showInputFields ? (<div className="tc" style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
           <div>
             <p>Enter The Number Of Nodes</p>
 
@@ -199,33 +256,69 @@ export default class Ring extends Component {
               className="pa1 ma2 ba b--light-blue "
             />
           </div>
+        </div>) : null}
+        {this.state.showAVGField ? <div className="tc" style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
           <div>
-            <Link to="/" className="generalButton">
-              {" "}
-              Go Home{" "}
-            </Link>
-            {!this.state.showSimulateButton ? null :
-              <button className="generalButton" onClick={this.simulate}>
-                Simulate
-              </button>}
+            <p>Enter Number Of Desired runs for Average Calcs</p>
+            <input
+              id="AVG"
+              type="text"
+              placeholder="Runs"
+              width="40%"
+              style={{ borderRadius: "10px" }}
+              className="pa1 ma2 ba b--light-blue "
 
-            {!this.state.showOffline ? null :
-              <button className="generalButton" onClick={this.appear}>
-                Step Over
-              </button>
-            }
-            {!this.state.showOnline ? null :
-              <button className="generalButton" onClick={this.completeRun}>
-                Complete Run
-              </button>
-            }
-            <button className="generalButton" onClick={this.reset}>
-              Reset
+            />
+            <button className="generalButton" onClick={this.stat}>
+              Calc Average
             </button>
+
           </div>
+        </div> : null}
+        <div>
+          <Link to="/" className="generalButton">
+            {" "}
+            Go Home{" "}
+          </Link>
+          {!this.state.showSimulateButton ? null :
+            <button className="generalButton" onClick={this.simulate}>
+              Simulate
+            </button>}
+
+          {!this.state.showOffline ? null :
+            <button className="generalButton" onClick={this.appear}>
+              Step Over
+            </button>
+          }
+          {!this.state.showOnline ? null :
+            (<>
+              <button className="generalButton" onClick={this.completeRun}>
+                Compelete Run
+              </button>
+              <button className="generalButton" onClick={this.showOptimalSolution}>
+                Optimal Solution
+              </button>
+              <button className="generalButton" onClick={this.showOnlineSolution}>
+                Online Solution
+              </button></>)
+          }
+          {this.state.showAVG ?
+            <button className="generalButton" onClick={this.calcAVG}>
+              Average
+            </button> : null}
+          <button className="generalButton" onClick={this.reset}>
+            Reset
+          </button>
         </div>
 
         <div className="tc">
+          {this.state.showAVGcRatioField ? <div className="tc" style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+            <h3>
+
+              The Average C-Ratio for the desired number of runs is : {this.state.cAVG} <br />
+              The Worst Case C-Ratio for the desired number of runs is : {this.state.cAVGworstCase}
+            </h3>
+          </div> : null}
           {this.state.showLpOnlineCNT ? (
             <h3>
               The C-Ratio in this Simulation is :{" "}
