@@ -4,7 +4,7 @@ import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 
 import { rand, randN, createLightpaths } from "../Structures/helpFunc.js";
-import { getSVG, f1, shuffle, onlineADMsnoDrawing} from "./Circles";
+import { getSVG, f1, shuffle, onlineADMsnoDrawing } from "./Circles";
 
 import "../App.css";
 
@@ -34,7 +34,8 @@ export default class Ring extends Component {
   }
 
   loadState = (event) => {
-    if (this.state.circlesCount === 0 || this.state.vertexCount === 0) { this.setState({ showSimulateButton: false }) } else { this.setState({ showSimulateButton: true }) }
+    console.log(event.target.value);
+    if (event.target.value === 0) { this.setState({ showSimulateButton: false }) } else { this.setState({ showSimulateButton: true }) }
     if (event.target.placeholder === 'Nodes') {
       this.setState({ vertexCount: event.target.value });
     } else if (event.target.placeholder === 'Circles') {
@@ -227,7 +228,7 @@ export default class Ring extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container tc">
         <h1>Ring Toplogy Simulation</h1>
 
         {this.state.showInputFields ? (<div className="tc" style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -235,9 +236,10 @@ export default class Ring extends Component {
             <p>Enter The Number Of Nodes</p>
 
             <input
+              id="verteciesNum"
+
               type="text"
               placeholder="Nodes"
-              width="40%"
               style={{ borderRadius: "10px" }}
               onBlur={this.loadState}
               className="pa1 ma2 ba b--light-blue "
@@ -248,9 +250,9 @@ export default class Ring extends Component {
 
             <p>Enter The Number Of Circles</p>
             <input
+              id="circlesNum"
               type="text"
               placeholder="Circles"
-              width="40%"
               style={{ borderRadius: "10px" }}
               onChange={this.loadState}
               className="pa1 ma2 ba b--light-blue "
@@ -264,7 +266,6 @@ export default class Ring extends Component {
               id="AVG"
               type="text"
               placeholder="Runs"
-              width="40%"
               style={{ borderRadius: "10px" }}
               className="pa1 ma2 ba b--light-blue "
 

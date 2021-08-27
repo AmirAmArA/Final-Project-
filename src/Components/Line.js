@@ -251,18 +251,16 @@ export default class Line extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container tc">
 
         <h1>Line Topology Simulation</h1>
 
         {this.state.showInputFields ? (<div className="tc" style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
           <div>
-
             <p>Enter The Number Of Nodes</p>
             <input
               type="text"
               placeholder="Nodes"
-              width="40%"
               style={{ borderRadius: "10px" }}
               onBlur={this.loadState}
               className="pa1 ma2 ba b--light-blue "
@@ -274,7 +272,6 @@ export default class Line extends Component {
             <input
               type="text"
               placeholder="Lines"
-              width="40%"
               style={{ borderRadius: "10px" }}
               onChange={this.loadState}
               className="pa1 ma2 ba b--light-blue "
@@ -288,7 +285,6 @@ export default class Line extends Component {
               id="AVG"
               type="text"
               placeholder="Runs"
-              width="40%"
               style={{ borderRadius: "10px" }}
               className="pa1 ma2 ba b--light-blue "
 
