@@ -53,7 +53,7 @@ export function optimalLines(
         lightPaths[i + 1].index * lineLenght,
         indexOfLevel,
         10,
-        "purple"
+        indexOfLevel === 0 ? "black" : "purple"
       );
       aadrawLPline(
         svg,
@@ -61,7 +61,7 @@ export function optimalLines(
         indexInLp * lineLenght + 5,
         indexOfLevel,
         20,
-        "purple"
+        indexOfLevel === 0 ? "black" : "purple"
       );
       aadrawLPline(
         svg,
@@ -69,7 +69,7 @@ export function optimalLines(
         lightPaths[i + 1].index * lineLenght + 5,
         indexOfLevel,
         20,
-        "purple"
+        indexOfLevel === 0 ? "black" : "purple"
       );
     }
   });
@@ -109,7 +109,6 @@ function drawVertesesForLines(levels, svg, globalVerticies) {
 
 export function onlineLines(mainLine, LParr, globalVerticies) {
   let svg = optimalLines([mainLine], globalVerticies, ".svgpainter2");
-
 
   let lineLenght = 250 / globalVerticies;
 
@@ -260,7 +259,6 @@ export function appendLPAVG(mainLine, LParr, globalVerticies) {
 }
 
 function drawLPS(mainLine, levels, globalVerticies) {
-
   let svg = optimalLines(
     [mainLine],
     globalVerticies,
