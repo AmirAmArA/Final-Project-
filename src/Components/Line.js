@@ -55,16 +55,17 @@ export default class Line extends Component {
   };
 
   loadState = (event) => {
+    if (event.target.value === 0) {
+      this.setState({ showSimulateButton: false });
+    } else {
+      this.setState({ showSimulateButton: true });
+    }
     if (event.target.placeholder === "Nodes") {
       this.setState({ vertexCount: event.target.value });
     } else if (event.target.placeholder === "Lines") {
       this.setState({ linesCount: event.target.value });
     }
-    if (this.state.linesCount === 0 || this.state.vertexCount === 0) {
-      this.setState({ showSimulateButton: false });
-    } else {
-      this.setState({ showSimulateButton: true });
-    }
+
   };
 
   async produceLightpaths() {
@@ -159,22 +160,22 @@ export default class Line extends Component {
     document.querySelector(".svgpainter").querySelector("svg").attributes
       .display.value === "none"
       ? (document
-          .querySelector(".svgpainter")
-          .querySelector("svg").attributes.display.value = "")
+        .querySelector(".svgpainter")
+        .querySelector("svg").attributes.display.value = "")
       : (document
-          .querySelector(".svgpainter")
-          .querySelector("svg").attributes.display.value = "none");
+        .querySelector(".svgpainter")
+        .querySelector("svg").attributes.display.value = "none");
   };
 
   showOnlineSolution = () => {
     document.querySelector(".svgpainter2").querySelector("svg").attributes
       .display.value === "none"
       ? (document
-          .querySelector(".svgpainter2")
-          .querySelector("svg").attributes.display.value = "")
+        .querySelector(".svgpainter2")
+        .querySelector("svg").attributes.display.value = "")
       : (document
-          .querySelector(".svgpainter2")
-          .querySelector("svg").attributes.display.value = "none");
+        .querySelector(".svgpainter2")
+        .querySelector("svg").attributes.display.value = "none");
   };
 
   appear = () => {
@@ -404,7 +405,7 @@ export default class Line extends Component {
               {this.state.showOnline
                 ? this.state.LParr[this.state.lpCNT] !== undefined
                   ? "Next Lightpath start is : " +
-                    this.state.LParr[this.state.lpCNT].startVertex
+                  this.state.LParr[this.state.lpCNT].startVertex
                   : null
                 : null}{" "}
               <br />{" "}
