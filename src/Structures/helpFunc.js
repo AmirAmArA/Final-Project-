@@ -6,24 +6,43 @@ const rand = (min, max) => {
 };
 
 const randN = (array) => {
-  let len = array.length;
+  let resultLen = rand(1, array.length - 1);
+  let result = [];
 
-  let n = Math.floor(Math.random() * len - 3) + 3;
+  console.log(array);
 
-  let result = new Array(n);
-  let taken = new Array(n);
-  if (n > len) {
-    throw new RangeError("ERROR in length");
+  for (let i = 0; i < resultLen; i++) {
+    let v = array[rand(1, array.length - 1)];
+    if (result.indexOf(v) !== -1) {
+      i--;
+    } else {
+      result.push(v);
+    }
   }
-  while (n--) {
-    let x = Math.floor(Math.random() * len);
-    result[n] = array[x in taken ? taken[x] : x];
-    taken[x] = --len in taken ? taken[len] : len;
-  }
-  return result.length > 1
-    ? result.sort((a, b) => (a.index > b.index ? 1 : -1))
-    : randN(array);
+  console.log(result);
+  return result.sort((a, b) => (a.index > b.index ? 1 : -1));
 };
+
+// const randN = (array) => {
+//   let len = array.length;
+
+//   let n = Math.floor(Math.random() * len - 2) + 2;
+
+//   let result = new Array(n);
+//   let taken = new Array(n);
+//   if (n > len) {
+//     throw new RangeError("ERROR in length");
+//   }
+//   while (n--) {
+//     let x = Math.floor(Math.random() * len);
+//     result[n] = array[x in taken ? taken[x] : x];
+//     taken[x] = --len in taken ? taken[len] : len;
+//   }
+//   console.log("hell", result.length, result);
+//   return result.length > 1
+//     ? result.sort((a, b) => (a.index > b.index ? 1 : -1))
+//     : randN(array);
+// };
 
 const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
   let lightpaths = [];
@@ -101,7 +120,6 @@ const checkPathL = (v1, v2, vertex) => {
 };
 
 function check_path(v1, v2, vertex) {
-
   let start = new Vertex();
   let target = new Vertex();
   let current = new Vertex();
@@ -117,7 +135,6 @@ function check_path(v1, v2, vertex) {
   }
 
   return edges_on_the_way;
-
 }
 
 export { randN, rand, createLightpaths, createLightpathsLine };
