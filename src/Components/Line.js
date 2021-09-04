@@ -34,6 +34,7 @@ export default class Line extends Component {
     this.produceLightpaths = this.produceLightpaths.bind(this);
   }
 
+  // a function that creates the graph 
   produceGraph = () => {
     const { vertexCount, vertexArr, edgeArr } = this.state;
 
@@ -54,6 +55,7 @@ export default class Line extends Component {
     }
   };
 
+  // a function to load the state with intial values
   loadState = (event) => {
     if (event.target.value === 0) {
       this.setState({ showSimulateButton: false });
@@ -68,6 +70,7 @@ export default class Line extends Component {
 
   };
 
+  // this function is responsible for creating the lightpaths (visual/ theoritical)
   async produceLightpaths() {
     const { vertexCount, vertexArr, linesCount, lightpathArr, LParr } =
       this.state;
@@ -77,8 +80,7 @@ export default class Line extends Component {
 
     let optimalLinesArr = new Array(optimalLinesNum);
     const vertexArrLine = [...vertexArr];
-    // vertexArrLine.pop();
-    // vertexArrLine.shift();
+   
 
     for (let i = 0; i < optimalLinesNum; i++) {
       optimalLinesArr[i] = randN(vertexArrLine);
@@ -102,6 +104,7 @@ export default class Line extends Component {
     });
   }
 
+  // showing the average of the runs
   calcAVG = () => {
     this.setState({
       showLpOnlineCNT: false,
@@ -112,6 +115,7 @@ export default class Line extends Component {
     });
   };
 
+  //calculating the statistics of the runs (worst/average)
   stat = () => {
     const { vertexArr, lightpathArr, LParr } = this.state;
 
@@ -134,6 +138,8 @@ export default class Line extends Component {
       cAVG: (cRatioAVG / document.querySelector("#AVG").value).toFixed(2),
     });
   };
+
+// a function to complete run the algorithm with stepping over the steps of the calculations 
   completeRun = () => {
     const { LParr } = this.state;
     let counter = 0;
@@ -156,6 +162,8 @@ export default class Line extends Component {
     this.setState({ showLpOnlineCNT: true });
   };
 
+
+  //showing the optimal solution on the screen
   showOptimalSolution = () => {
     document.querySelector(".svgpainter").querySelector("svg").attributes
       .display.value === "none"
@@ -166,6 +174,8 @@ export default class Line extends Component {
         .querySelector(".svgpainter")
         .querySelector("svg").attributes.display.value = "none");
   };
+
+    //showing the online solution on the screen
 
   showOnlineSolution = () => {
     document.querySelector(".svgpainter2").querySelector("svg").attributes
@@ -178,6 +188,7 @@ export default class Line extends Component {
         .querySelector("svg").attributes.display.value = "none");
   };
 
+  //a function to step ove the minADM steps one by one
   appear = () => {
     document
       .querySelector(".svgpainter")
@@ -215,6 +226,7 @@ export default class Line extends Component {
     );
   };
 
+  //a function to run the simulation functions one by one
   simulate = () => {
     this.setState({
       showOffline: true,
@@ -227,6 +239,8 @@ export default class Line extends Component {
     this.produceLightpaths();
   };
 
+
+  // a function to reset the state of the component
   reset = () => {
     if (this.state.showInputFields) {
       document.querySelectorAll("input")[0].value = "";
@@ -259,6 +273,7 @@ export default class Line extends Component {
     });
   };
 
+  //rendering the components on the screen
   render() {
     return (
       <div className="container tc">

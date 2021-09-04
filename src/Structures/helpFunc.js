@@ -1,10 +1,12 @@
 import Lightpath from "./Lightpath";
 import Vertex from "../Structures/Vertex";
 
+//a function to return a random number between min and max
 const rand = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+// a function that return a random number of elements inside an a given array
 const randN = (array) => {
   let resultLen = rand(1, array.length - 1);
   let result = [];
@@ -23,27 +25,7 @@ const randN = (array) => {
   return result.sort((a, b) => (a.index > b.index ? 1 : -1));
 };
 
-// const randN = (array) => {
-//   let len = array.length;
-
-//   let n = Math.floor(Math.random() * len - 2) + 2;
-
-//   let result = new Array(n);
-//   let taken = new Array(n);
-//   if (n > len) {
-//     throw new RangeError("ERROR in length");
-//   }
-//   while (n--) {
-//     let x = Math.floor(Math.random() * len);
-//     result[n] = array[x in taken ? taken[x] : x];
-//     taken[x] = --len in taken ? taken[len] : len;
-//   }
-//   console.log("hell", result.length, result);
-//   return result.length > 1
-//     ? result.sort((a, b) => (a.index > b.index ? 1 : -1))
-//     : randN(array);
-// };
-
+//a function that creates lightpaths on a given graph in Ring topology
 const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
   let lightpaths = [];
   for (let i = 0; i < optimalCirclesArr.length; i++) {
@@ -78,6 +60,7 @@ const createLightpaths = (optimalCirclesArr, vertexArr, edgeArr) => {
   return lightpaths;
 };
 
+//a function that creates lightpaths on a given graph in line topology
 const createLightpathsLine = (optimalLinesArr, vertexArr) => {
   let lightpaths = [];
   for (let i = 0; i < optimalLinesArr.length; i++) {
@@ -103,6 +86,7 @@ const createLightpathsLine = (optimalLinesArr, vertexArr) => {
   return lightpaths;
 };
 
+//a function that checks edges on the way of the lightpath in line topology 
 const checkPathL = (v1, v2, vertex) => {
   let start = new Vertex();
   let target = new Vertex();
@@ -119,6 +103,7 @@ const checkPathL = (v1, v2, vertex) => {
   return edges_on_the_way;
 };
 
+//a function that checks edges on the way of the lightpath in Ring topology 
 function check_path(v1, v2, vertex) {
   let start = new Vertex();
   let target = new Vertex();

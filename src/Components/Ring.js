@@ -33,6 +33,7 @@ export default class Ring extends Component {
     };
   }
 
+  // a function to load the state with intial values
   loadState = (event) => {
     console.log(event.target.value);
     if (event.target.value === 0) { this.setState({ showSimulateButton: false }) } else { this.setState({ showSimulateButton: true }) }
@@ -43,6 +44,7 @@ export default class Ring extends Component {
     }
   };
 
+  // a function that creates the graph 
   produceGraph = () => {
     const { vertexCount, vertexArr, edgeArr } = this.state;
 
@@ -66,6 +68,7 @@ export default class Ring extends Component {
     }
   };
 
+    // this function is responsible for creating the lightpaths (visual/ theoritical)
   produceLightpathsOptimal = () => {
     const {
       circlesCount,
@@ -95,16 +98,22 @@ export default class Ring extends Component {
     });
   };
 
+    // showing the average of the runs
+
   calcAVG = () => {
-    this.setState({ showLpOnlineCNT: false, showAVGField: true, showOffline: false, showOnline: false, showAVG: false, })
+    this.setState({ 
+       showLpOnlineCNT: false,
+       showAVGField: true, 
+       showOffline: false, 
+       showOnline: false, 
+       showAVG: false, })
   }
 
-
+  //calculating the statistics of the runs (worst/average)
   stat = () => {
     const {
       vertexArr,
       lightpathArr,
-      LParr,
       edgeArr
     } = this.state;
 
@@ -123,6 +132,7 @@ export default class Ring extends Component {
 
   }
 
+  // a function to complete run the algorithm with stepping over the steps of the calculations 
   completeRun = () => {
     const { LParr } = this.state;
     let counter = 0;
@@ -148,16 +158,20 @@ export default class Ring extends Component {
 
   }
 
+    //showing the optimal solution on the screen
   showOptimalSolution = () => {
 
     document.querySelector('.svgpainter').querySelector('svg').attributes.display.value === 'none' ? document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = '' : document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = 'none'
 
   }
 
+   //showing the online solution on the screen
   showOnlineSolution = () => {
     document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value === 'none' ? document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value = '' : document.querySelector('.svgpainter3').querySelector('svg').attributes.display.value = 'none'
 
   }
+
+    //a function to step ove the minADM steps one by one
   appear = () => {
     console.log();
     document.querySelector('.svgpainter').querySelector('svg').attributes.display.value = ''
@@ -186,6 +200,8 @@ export default class Ring extends Component {
     this.setState({ lpCNT: this.state.lpCNT + 1 });
   };
 
+
+    //a function to run the simulation functions one by one
   simulate = () => {
 
     this.setState({ showOffline: true, showOnline: true, showSimulateButton: false, showInputFields: false, showAVG: true });
@@ -194,6 +210,7 @@ export default class Ring extends Component {
 
   };
 
+    // a function to reset the state of the component
   reset = () => {
     if (this.state.showInputFields) {
       document.querySelectorAll("input")[0].value = ""
@@ -226,6 +243,7 @@ export default class Ring extends Component {
 
   };
 
+    //rendering the components on the screen
   render() {
     return (
       <div className="container tc">

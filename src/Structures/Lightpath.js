@@ -1,3 +1,4 @@
+// A class for building the lighpath element in our network
 export default class Lightpath {
   constructor(wavelength, startVertex, endVertex, index, passing_edges) {
     this.wavelength = wavelength;

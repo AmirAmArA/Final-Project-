@@ -1,3 +1,4 @@
+//A class for building the Edge element
 export default class Edge {
   constructor(neighbor_edge1, neighbor_edge2, vertex1, vertex2, index, passing_lightpaths) {
     this.index = index;
