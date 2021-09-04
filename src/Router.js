@@ -8,12 +8,10 @@ import Header from "./Components/Header";
 const Router = () => (
   <HashRouter basename='/'>
     <div>
-      {/* <Header /> */}
       <Switch>
         <Route path="/" component={Home} exact={true} />
         <Route path="/Ring" component={Ring} />
         <Route path="/Line" component={Line} />
-        {/* <Route path="/add-role" component={AddRole} /> */}
       </Switch>
 
     </div>
