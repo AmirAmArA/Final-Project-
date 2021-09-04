@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Vertex from "../Structures/Vertex";
 import Edge from "../Structures/Edge";
 
-import { rand, randN, createLightpaths } from "../Structures/helpFunc.js";
+import { randN, createLightpaths } from "../Structures/helpFunc.js";
 import { getSVG, f1, shuffle, onlineADMsnoDrawing } from "./Circles";
 
 import "../App.css";
