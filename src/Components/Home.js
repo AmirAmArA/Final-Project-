@@ -15,8 +15,6 @@ export default class Home extends Component {
           topologies, Ring and Line Topology.
         </p>
         <div>
-          <Link to="/" className="generalButton"> More Info</Link>
-
           <Link to="/Ring" className="generalButton"> Ring Topology</Link>
 
           <Link to="/Line" className="generalButton"> Line Topology</Link>
